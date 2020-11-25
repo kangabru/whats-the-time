@@ -1,0 +1,16 @@
+{
+    "presets": [
+        [
+            "@babel/preset-react",
+            {
+                "pragma": "h"
+            }
+        ],
+        [
+            "@babel/preset-typescript",
+            {
+                "jsxPragma": "h"
+            }
+        ]
+    ]
+}
