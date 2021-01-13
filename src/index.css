@@ -1,3 +1,13 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@components {
+    .row {
+        @apply flex flex-row items-center;
+    }
+
+    .col {
+        @apply flex flex-col items-center;
+    }
+}
