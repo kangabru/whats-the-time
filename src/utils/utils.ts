@@ -1,4 +1,5 @@
 import { DateTime, Settings } from "luxon"
+import { useEffect, useState } from "preact/hooks"
 
 type ClassProp = string | boolean | undefined | null
 export function join(...classes: ClassProp[]): string {
@@ -18,4 +19,13 @@ export function toTime(there: DateTime, local?: DateTime): string {
  */
 export function setDefaultSystemLocale() {
     Settings.defaultLocale = window.navigator.languages ? window.navigator.languages[0] : window.navigator.language
+}
+
+/** Triggers a react update every few seconds in order. It's used to update times on the dashboard in real time. */
+export function useTimeUpdater() {
+    const [_, update] = useState(false)
+    useEffect(() => {
+        const int = setInterval(() => update(s => !s), 15e3) // 15 seconds
+        return () => clearInterval(int)
+    }, [])
 }

@@ -3,7 +3,7 @@ import { h } from 'preact';
 import { useLocalTimezone } from './selectors/timezone';
 import useAppState from '../utils/store';
 import { Location } from '../utils/types';
-import { join, toTime } from '../utils/utils';
+import { join, toTime, useTimeUpdater } from '../utils/utils';
 import { MenuIcon } from '@heroicons/react/solid';
 import { toTimeOption } from './selectors/time';
 
@@ -40,6 +40,7 @@ export default function TimeDashboard() {
 }
 
 function LocationRow(location: Location) {
+    useTimeUpdater()
     const thereNow = DateTime.now().setZone(location.timezone)
 
     const times = useAppState(s => s.times)
