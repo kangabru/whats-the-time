@@ -16,7 +16,7 @@ export default function useTimeSelector(defaultTime: Time = { hour: 13 }): [JSX.
     return [<Selector value={time} options={options} onChange={setTime} repr={r => r.name} />, time]
 }
 
-function toTimeOption(time: Time) {
+export function toTimeOption(time: Time) {
     const datetime = DateTime.local(2000, 1, 1, time.hour, 0, 0)
     const name = datetime.toLocaleString(DateTime.TIME_SIMPLE)
     return { time, name }
