@@ -1,11 +1,11 @@
 import { DateTime } from 'luxon';
 import { h } from 'preact';
-import { useLocalTimezone } from '../selectors/timezone';
+import { useLocalTimezone } from './selectors/timezone';
 import useAppState from '../utils/store';
 import { Location } from '../utils/types';
 import { join, toTime } from '../utils/utils';
 import { MenuIcon } from '@heroicons/react/solid';
-import { toTimeOption } from '../selectors/time';
+import { toTimeOption } from './selectors/time';
 
 const classTdHead = "px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
 const classTdHeadCenter = join(classTdHead, "text-center")

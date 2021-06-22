@@ -1,8 +1,8 @@
 import { DateTime } from 'luxon';
 import { h, JSX } from 'preact';
 import { useMemo, useState } from 'preact/hooks';
-import times from '../data/times';
-import { Time } from '../utils/types';
+import times from '../../data/times';
+import { Time } from '../../utils/types';
 import Selector from './selector';
 
 export type TimeOption = {

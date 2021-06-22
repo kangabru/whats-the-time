@@ -1,7 +1,7 @@
 import { DateTime } from 'luxon';
 import { h } from 'preact';
-import useTimeSelector, { useNow as useLocalNow } from '../selectors/time';
-import useTimezoneSelector, { useLocalTimezone } from '../selectors/timezone';
+import useTimeSelector, { useNow as useLocalNow } from './selectors/time';
+import useTimezoneSelector, { useLocalTimezone } from './selectors/timezone';
 import { toTime } from '../utils/utils';
 
 export default function TimeConverter() {

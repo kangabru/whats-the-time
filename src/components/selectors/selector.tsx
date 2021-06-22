@@ -1,7 +1,7 @@
 import { Listbox, Transition } from '@headlessui/react';
 import { CheckIcon, GlobeIcon, SelectorIcon } from '@heroicons/react/solid';
 import { Fragment, h } from 'preact';
-import { join } from '../utils/utils';
+import { join } from '../../utils/utils';
 
 export type Selectable<T> = T & { disabled?: boolean }
 
