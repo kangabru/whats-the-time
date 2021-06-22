@@ -17,7 +17,7 @@ export default function useTimeSelector(defaultTime: Time = { hour: 13 }): [JSX.
 }
 
 export function toTimeOption(time: Time) {
-    const datetime = DateTime.local(2000, 1, 1, time.hour, 0, 0)
+    const datetime = DateTime.now().set({ hour: time.hour, minute: 0 })
     const name = datetime.toLocaleString(DateTime.TIME_SIMPLE)
     return { time, name }
 }
