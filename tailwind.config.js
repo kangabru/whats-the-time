@@ -13,7 +13,13 @@ module.exports = {
         "./src/**/*.tsx",
     ],
     theme: {
-        extend: {},
+        extend: {
+            maxWidth: {
+                xxs: '12rem'
+            }
+        },
     },
-    plugins: [],
+    plugins: [
+        require('@tailwindcss/forms'),
+    ],
 }
