@@ -2,6 +2,9 @@ import { h, render } from 'preact';
 import TimeConverter from './components/convert';
 import TimeDashBoard from './components/dashboard';
 import './index.css';
+import { setDefaultSystemLocale } from './utils/utils';
+
+setDefaultSystemLocale()
 
 render(<App />, document.getElementById('root') as HTMLElement)
 
