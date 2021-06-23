@@ -9,7 +9,7 @@ export function join(...classes: ClassProp[]): string {
 export function prettyTime(there: DateTime, local?: DateTime): string {
     local = local ?? DateTime.now()
     const dayDiff = there.day - local.day
-    const dayText = dayDiff === 1 ? "(T)" : dayDiff === -1 ? "(Y)" : ""
+    const dayText = dayDiff === 1 ? "⁽⁺¹⁾" : dayDiff === -1 ? "⁽⁻¹⁾" : ""
     return `${there.toLocaleString(DateTime.TIME_SIMPLE)} ${dayText}`
 }
 
