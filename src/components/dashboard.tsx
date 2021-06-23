@@ -39,7 +39,7 @@ export default function TimeDashboard() {
                         </thead>
                         <tbody class="bg-white divide-y divide-gray-200">
                             <LocationRow key='here' notes="Local" timezone={here} create={openCreate} />
-                            {locations.map(l => <LocationRow key={l.timezone} {...l} />)}
+                            {locations.map((l, i) => <LocationRow key={`${l.timezone}-${i}`} {...l} />)}
                         </tbody>
                     </table>
                 </div>
