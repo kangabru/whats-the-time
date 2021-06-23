@@ -45,12 +45,14 @@ export default function EditTimezone({ isOpen, close, location }: { isOpen: bool
             </div>
         </div>
 
-        <button type="submit" onClick={onClick}
-            className={join(
-                "font-semibold py-2 px-4 border border-transparent shadow-sm text-sm rounded-md text-white bg-indigo-400 hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500",
-                !isValid && "opacity-50 cursor-not-allowed",
-            )}>
-            Save
-        </button>
+        <div class="flex justify-end">
+            <button type="submit" onClick={onClick}
+                className={join(
+                    "font-semibold py-2 px-4 border border-transparent shadow-sm text-sm rounded-md text-white bg-indigo-400 hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500",
+                    !isValid && "opacity-50 cursor-not-allowed",
+                )}>
+                Save
+            </button>
+        </div>
     </Modal>
 }
