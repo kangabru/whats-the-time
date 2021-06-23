@@ -1,11 +1,11 @@
 import { DateTime } from 'luxon';
 import { h } from 'preact';
-import { useLocalTimezone } from './selectors/timezone';
 import useAppState from '../utils/store';
 import { Location } from '../utils/types';
 import { join, toTime, useTimeUpdater } from '../utils/utils';
-import { MenuIcon } from '@heroicons/react/solid';
+import TimezoneMenu from './menus/timezone';
 import { toTimeOption } from './selectors/time';
+import { useLocalTimezone } from './selectors/timezone';
 
 const classTdHead = "px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
 const classTdHeadCenter = join(classTdHead, "text-center")
@@ -49,9 +49,7 @@ function LocationRow(location: Location) {
     return <tr class="bg-white rounded-lg overflow-hidden my-3">
         <td className="px-6 py-4 whitespace-nowrap">
             <div className="flex items-center">
-                <button class="flex-shrink-0">
-                    <MenuIcon class="h-6 w-6" />
-                </button>
+                <TimezoneMenu />
                 <div class="ml-4">
                     <div class="text-sm font-medium text-gray-900">{location.notes}</div>
                     <div class="text-sm text-gray-500">{location.timezone}</div>
