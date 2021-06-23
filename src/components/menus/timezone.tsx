@@ -6,7 +6,7 @@ import { Location } from '../../utils/types'
 import { join } from '../../utils/utils'
 
 export default function TimezoneMenu({ location }: { location: Location }) {
-    const { removeLocation } = useAppState()
+    const { moveLocation, removeLocation } = useAppState()
 
     return <Menu as="div" className="relative inline-block text-left">
         <Menu.Button title="Edit" className="flex-shrink-0 rounded focus:outline-none focus:ring-2 focus:ring-gray focus:ring-opacity-75 opacity-50 hover:opacity-100">
@@ -26,8 +26,8 @@ export default function TimezoneMenu({ location }: { location: Location }) {
                     <MenuButton text="Edit" onClick={console.log} icon={PencilIcon} />
                 </div>
                 <div className="px-1 py-1">
-                    <MenuButton text="Move up" onClick={console.log} icon={ChevronUpIcon} />
-                    <MenuButton text="Move down" onClick={console.log} icon={ChevronDownIcon} />
+                    <MenuButton text="Move up" onClick={() => moveLocation(location, true)} icon={ChevronUpIcon} />
+                    <MenuButton text="Move down" onClick={() => moveLocation(location, false)} icon={ChevronDownIcon} />
                 </div>
                 <div className="px-1 py-1">
                     <MenuButton text="Delete" onClick={() => removeLocation(location)} icon={TrashIcon} class="text-red-600" classActive="bg-red-100 underline" />

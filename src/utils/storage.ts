@@ -1,6 +1,6 @@
 import { Location, Time } from './types';
 
-const KEY = 'data'
+const KEY_DASHBOARD = 'dashboard'
 
 // Dev note: Changes here should be accompanied by a version change and handled correctly in code
 export type StorageState = {
@@ -9,14 +9,14 @@ export type StorageState = {
 }
 
 export function getState(): StorageState {
-    const version = localStorage.getItem(KEY)
+    const version = localStorage.getItem(KEY_DASHBOARD)
     return version
-        ? JSON.parse(localStorage.getItem(KEY) as string) as StorageState
+        ? JSON.parse(localStorage.getItem(KEY_DASHBOARD) as string) as StorageState
         : setState(defaultState)
 }
 
 export function setState(state: StorageState): StorageState {
-    localStorage.setItem(KEY, JSON.stringify(state))
+    localStorage.setItem(KEY_DASHBOARD, JSON.stringify(state))
     return getState()
 }
 
