@@ -22,7 +22,7 @@ type AppState = {
 
     locations: Location[],
     moveLocation(_: Location, up: boolean): void,
-    addLocation(_: Location): void,
+    setLocation(_: Location): void,
     removeLocation(_: Location): void,
 }
 
@@ -46,9 +46,11 @@ const useAppState = zustand<AppState>((get, set) => ({
         set('Del time', viaStorage({ times }))
     },
 
-    addLocation: function (location: Location) {
+    setLocation: function (location: Location) {
         const { locations } = get()
-        locations.push(location)
+        const index = locations.findIndex(l => l.timezone === location.timezone)
+        if (index === -1) locations.push(location)
+        else locations[index] = location
         set('Add location', viaStorage({ locations }))
     },
     removeLocation: function (location: Location) {

@@ -15,7 +15,7 @@ export type SelectorProps<T> = {
 export default function Selector<T>({ value, repr, options, onChange }: SelectorProps<T>) {
     return <Listbox value={value} onChange={onChange}>
         <div className="relative mt-1 w-full max-w-xxs">
-            <Listbox.Button className="relative w-full py-2 pl-3 pr-10 text-left bg-white rounded-lg shadow-md cursor-default focus:outline-none focus:ring-2 focus:ring-opacity-75 focus:ring-gray focus:ring-offset-gray-300 focus:ring-offset-2 focus:border-gray-500 sm:text-sm">
+            <Listbox.Button className="relative w-full py-2 pl-3 pr-10 text-left bg-white rounded-lg shadow-md cursor-default focus:outline-none focus:ring-2 focus:ring-opacity-75 focus:ring-gray focus:border-gray-500 sm:text-sm">
                 <span className="block truncate">{repr(value)}</span>
                 <span className="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
                     <SelectorIcon
