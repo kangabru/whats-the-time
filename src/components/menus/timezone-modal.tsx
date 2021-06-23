@@ -4,13 +4,14 @@ import { Fragment, h } from 'preact';
 import { useMemo, useState } from 'preact/hooks';
 import useAppState from '../../utils/store';
 import { join } from '../../utils/utils';
-import useTimezoneSelector from './../selectors/timezone';
+import { SelectorStyle } from '../selectors/selector';
+import useTimezoneSelector from '../selectors/timezone';
 
 export default function CreateTimezone({ isOpen, close }: { isOpen: boolean, close: () => void }) {
     const { setLocation } = useAppState()
 
     const [notes, setNotes] = useState("")
-    const [selectorTimezone, { timezone }] = useTimezoneSelector()
+    const [selectorTimezone, { timezone }] = useTimezoneSelector(undefined, SelectorStyle.Field)
 
     const isValidNotes = !!notes
     const isValidZone = useMemo(() => DateTime.now().setZone(timezone).isValid, [timezone])
@@ -59,8 +60,10 @@ export default function CreateTimezone({ isOpen, close }: { isOpen: boolean, clo
                             <div class="w-full max-w-xxs">
                                 <label htmlFor="names" class="block text-sm font-medium text-gray-700">Notes</label>
                                 <input type="text" value={notes} onInput={e => setNotes(e.currentTarget.value)} placeholder="Offshore Team"
-                                    class="mt-1 focus:outline-none focus:ring-2 focus:ring-opacity-75 focus:ring-gray focus:border-none block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-                                />
+                                    class={join(
+                                        "block w-full mt-1 border-gray-300 rounded-lg shadow-sm sm:text-sm",
+                                        "focus:outline-none focus:ring-2 focus:ring-opacity-75 focus:ring-gray focus:border-white",
+                                    )} />
                             </div>
 
                             <div class="w-full max-w-xxs">

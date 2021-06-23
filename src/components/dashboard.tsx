@@ -6,8 +6,8 @@ import { RelativeParent } from '../utils/relative-context';
 import useAppState from '../utils/store';
 import { Location } from '../utils/types';
 import { join, prettyTime, prettyTimezone, useTimeUpdater } from '../utils/utils';
-import TimezoneMenu from './menus/timezone';
-import CreateTimezone from './menus/timezone-edit';
+import TimezoneMenu from './menus/timezone-menu';
+import CreateTimezone from './menus/timezone-modal';
 import { toTimeOption } from './selectors/time';
 import { useLocalTimezone } from './selectors/timezone';
 

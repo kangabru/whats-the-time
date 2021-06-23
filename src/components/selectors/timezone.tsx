@@ -4,7 +4,7 @@ import { useMemo, useState } from 'preact/hooks';
 import timezones from '../../data/timezones';
 import { Timezone } from '../../utils/types';
 import { prettyTimezone } from '../../utils/utils';
-import Selector, { SelectorProps } from './selector';
+import Selector, { SelectorStyle } from './selector';
 
 export type TimezoneOption = {
     name: string,
@@ -12,10 +12,16 @@ export type TimezoneOption = {
     disabled?: boolean,
 }
 
-export default function useTimezoneSelector(defaultTimezone: Timezone = "UTC"): [JSX.Element, TimezoneOption] {
+export default function useTimezoneSelector(defaultTimezone: Timezone = "UTC", style?: SelectorStyle): [JSX.Element, TimezoneOption] {
     const options = useTimezone()
     const [option, setOption] = useState<TimezoneOption>(zoneToOption(defaultTimezone))
-    return [<TimezoneSelector value={option} options={options} onChange={setOption} />, option]
+    return [
+        <Selector
+            options={options} value={option} onChange={setOption}
+            style={style} repr={r => r.name}
+        />,
+        option
+    ]
 }
 
 function useTimezone(): TimezoneOption[] {
@@ -32,12 +38,6 @@ function groupToOptions(name: string, timezones: Timezone[]): TimezoneOption[] {
 
 function zoneToOption(timezone: Timezone): TimezoneOption {
     return { timezone, name: prettyTimezone(timezone) }
-}
-
-type TimezoneSelectorProps = Pick<SelectorProps<TimezoneOption>, 'value' | 'onChange' | 'options'>
-
-function TimezoneSelector(props: TimezoneSelectorProps) {
-    return <Selector {...props} repr={r => r.name} />
 }
 
 export function useLocalTimezone() {

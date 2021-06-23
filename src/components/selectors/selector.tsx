@@ -10,12 +10,20 @@ export type SelectorProps<T> = {
     repr: (value: T) => string,
     options: Selectable<T>[],
     onChange: (value: T) => void,
+    style?: SelectorStyle,
 }
 
-export default function Selector<T>({ value, repr, options, onChange }: SelectorProps<T>) {
+export enum SelectorStyle { Raised, Field }
+
+export default function Selector<T>({ value, repr, options, onChange, style }: SelectorProps<T>) {
     return <Listbox value={value} onChange={onChange}>
         <div className="relative mt-1 w-full max-w-xxs">
-            <Listbox.Button className="relative w-full py-2 pl-3 pr-10 text-left bg-white rounded-lg shadow-md cursor-default focus:outline-none focus:ring-2 focus:ring-opacity-75 focus:ring-gray focus:border-gray-500 sm:text-sm">
+            <Listbox.Button className={join(
+                "relative w-full py-2 pl-3 pr-10 text-left bg-white rounded-lg cursor-default sm:text-sm",
+                "focus:outline-none focus:ring-2 focus:ring-opacity-75 focus:ring-gray",
+                (style === SelectorStyle.Raised || style === undefined) && "shadow-md focus:border-gray-500",
+                style === SelectorStyle.Field && "border border-gray-300 shadow-sm focus:border-white",
+            )}>
                 <span className="block truncate">{repr(value)}</span>
                 <span className="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
                     <SelectorIcon
