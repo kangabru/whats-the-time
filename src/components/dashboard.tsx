@@ -4,7 +4,7 @@ import { h } from 'preact';
 import { useState } from 'preact/hooks';
 import useAppState from '../utils/store';
 import { Location } from '../utils/types';
-import { join, toTime, useTimeUpdater } from '../utils/utils';
+import { join, prettyTime, prettyTimezone, useTimeUpdater } from '../utils/utils';
 import TimezoneMenu from './menus/timezone';
 import CreateTimezone from './menus/timezone-edit';
 import { toTimeOption } from './selectors/time';
@@ -64,11 +64,11 @@ function LocationRow({ create, ...location }: Location & { create?: () => void }
                     : <TimezoneMenu location={location} />}
                 <div class="ml-4">
                     <div class="text-sm font-medium text-gray-900">{location.notes}</div>
-                    <div class="text-sm text-gray-500">{location.timezone}</div>
+                    <div class="text-sm text-gray-500">{prettyTimezone(location.timezone)}</div>
                 </div>
             </div>
         </td>
-        <td class={classTdBody}>{toTime(thereNow)}</td>
-        {thereTimes.map(t => <td class={classTdBody} key={t}>{toTime(t)}</td>)}
+        <td class={classTdBody}>{prettyTime(thereNow)}</td>
+        {thereTimes.map(t => <td class={classTdBody} key={t}>{prettyTime(t)}</td>)}
     </tr>
 }

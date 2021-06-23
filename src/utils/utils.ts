@@ -6,11 +6,16 @@ export function join(...classes: ClassProp[]): string {
     return classes.filter(x => !!x).join(" ")
 }
 
-export function toTime(there: DateTime, local?: DateTime): string {
+export function prettyTime(there: DateTime, local?: DateTime): string {
     local = local ?? DateTime.now()
     const dayDiff = there.day - local.day
     const dayText = dayDiff === 1 ? "(T)" : dayDiff === -1 ? "(Y)" : ""
     return `${there.toLocaleString(DateTime.TIME_SIMPLE)} ${dayText}`
+}
+
+export function prettyTimezone(timezone: string): string {
+    const parts = timezone.replace("_", " ").split('/')
+    return parts.length == 1 ? parts[0] : `${parts[1]} (${parts[0]})`
 }
 
 /** Force the time/date locale to the system default so that all luxor times/dates are formatted in that locale.

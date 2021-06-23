@@ -2,7 +2,7 @@ import { DateTime } from 'luxon';
 import { h } from 'preact';
 import useTimeSelector, { useNow as useLocalNow } from './selectors/time';
 import useTimezoneSelector, { useLocalTimezone } from './selectors/timezone';
-import { toTime } from '../utils/utils';
+import { prettyTime } from '../utils/utils';
 
 export default function TimeConverter() {
     const now = useLocalNow()
@@ -33,7 +33,7 @@ export default function TimeConverter() {
             <tr>
                 <td colSpan={2} class="px-2 py-1 text-center">
                     <hr class="w-full my-2 border-t-2 border-gray-200" />
-                    <span>{toTime(_timeIn, _timeWhen)}</span>
+                    <span>{prettyTime(_timeIn, _timeWhen)}</span>
                 </td>
             </tr>
         </tbody>
