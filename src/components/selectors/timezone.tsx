@@ -3,6 +3,7 @@ import { h, JSX } from 'preact';
 import { useMemo, useState } from 'preact/hooks';
 import timezones from '../../data/timezones';
 import { Timezone } from '../../utils/types';
+import { prettyTimezone } from '../../utils/utils';
 import Selector, { SelectorProps } from './selector';
 
 export type TimezoneOption = {
@@ -30,9 +31,7 @@ function groupToOptions(name: string, timezones: Timezone[]): TimezoneOption[] {
 }
 
 function zoneToOption(timezone: Timezone): TimezoneOption {
-    const parts = timezone.replace("_", " ").split('/')
-    const name = parts.length == 1 ? parts[0] : `${parts[1]} (${parts[0]})`
-    return { timezone: timezone, name }
+    return { timezone, name: prettyTimezone(timezone) }
 }
 
 type TimezoneSelectorProps = Pick<SelectorProps<TimezoneOption>, 'value' | 'onChange' | 'options'>

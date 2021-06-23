@@ -1,11 +1,14 @@
+import { PlusIcon } from '@heroicons/react/solid';
 import { DateTime } from 'luxon';
 import { h } from 'preact';
-import { useLocalTimezone } from './selectors/timezone';
+import { useState } from 'preact/hooks';
 import useAppState from '../utils/store';
 import { Location } from '../utils/types';
-import { join, toTime, useTimeUpdater } from '../utils/utils';
-import { MenuIcon } from '@heroicons/react/solid';
+import { join, prettyTime, prettyTimezone, useTimeUpdater } from '../utils/utils';
+import TimezoneMenu from './menus/timezone';
+import CreateTimezone from './menus/timezone-edit';
 import { toTimeOption } from './selectors/time';
+import { useLocalTimezone } from './selectors/timezone';
 
 const classTdHead = "px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
 const classTdHeadCenter = join(classTdHead, "text-center")
@@ -16,7 +19,12 @@ export default function TimeDashboard() {
     const times = useAppState(s => s.times).map(toTimeOption).map(t => t.name)
     const locations = useAppState(s => s.locations)
 
+    const [createIsOpen, setCreateIsOpen] = useState(false)
+    const closeCreate = () => setCreateIsOpen(false)
+    const openCreate = () => setCreateIsOpen(true)
+
     return <div class="flex flex-col">
+        <CreateTimezone isOpen={createIsOpen} close={closeCreate} />
         <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
             <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
                 <div class="shadow-md overflow-hidden border-b border-gray-200 sm:rounded-lg">
@@ -29,7 +37,7 @@ export default function TimeDashboard() {
                             </tr>
                         </thead>
                         <tbody class="bg-white divide-y divide-gray-200">
-                            <LocationRow key='here' notes="Local" timezone={here} />
+                            <LocationRow key='here' notes="Local" timezone={here} create={openCreate} />
                             {locations.map(l => <LocationRow key={l.timezone} {...l} />)}
                         </tbody>
                     </table>
@@ -39,7 +47,7 @@ export default function TimeDashboard() {
     </div>
 }
 
-function LocationRow(location: Location) {
+function LocationRow({ create, ...location }: Location & { create?: () => void }) {
     useTimeUpdater()
     const thereNow = DateTime.now().setZone(location.timezone)
 
@@ -49,16 +57,18 @@ function LocationRow(location: Location) {
     return <tr class="bg-white rounded-lg overflow-hidden my-3">
         <td className="px-6 py-4 whitespace-nowrap">
             <div className="flex items-center">
-                <button class="flex-shrink-0">
-                    <MenuIcon class="h-6 w-6" />
-                </button>
+                {create
+                    ? <button onClick={create} class="flex-shrink-0 rounded focus:outline-none focus:ring-2 focus:ring-gray focus:ring-opacity-75 opacity-50 hover:opacity-100">
+                        <PlusIcon class="w-6 h-6" />
+                    </button>
+                    : <TimezoneMenu location={location} />}
                 <div class="ml-4">
                     <div class="text-sm font-medium text-gray-900">{location.notes}</div>
-                    <div class="text-sm text-gray-500">{location.timezone}</div>
+                    <div class="text-sm text-gray-500">{prettyTimezone(location.timezone)}</div>
                 </div>
             </div>
         </td>
-        <td class={classTdBody}>{toTime(thereNow)}</td>
-        {thereTimes.map(t => <td class={classTdBody} key={t}>{toTime(t)}</td>)}
+        <td class={classTdBody}>{prettyTime(thereNow)}</td>
+        {thereTimes.map(t => <td class={classTdBody} key={t}>{prettyTime(t)}</td>)}
     </tr>
 }
