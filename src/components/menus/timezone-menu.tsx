@@ -7,7 +7,8 @@ import { Location } from '../../utils/types'
 import { join } from '../../utils/utils'
 
 export default function TimezoneMenu({ location, edit }: { location: Location, edit: () => void }) {
-    const { moveLocation, removeLocation } = useAppState()
+    const moveLocation = useAppState(s => s.moveLocation)
+    const removeLocation = useAppState(s => s.removeLocation)
     const [ref, top] = useMenuPosition()
     return <Menu as="div" className="inline-block text-left">
         <Menu.Button ref={ref} title="Edit" className="flex-shrink-0 rounded focus:outline-none focus:ring-2 focus:ring-gray focus:ring-opacity-75 opacity-50 hover:opacity-100">

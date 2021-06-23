@@ -10,7 +10,7 @@ import useTimezoneSelector from '../selectors/timezone';
 import Modal from './modal';
 
 export default function EditTimezone({ isOpen, close, location }: { isOpen: boolean, close: () => void, location?: Location }) {
-    const { setLocation } = useAppState()
+    const setLocation = useAppState(s => s.setLocation)
 
     const [notes, setNotes] = useState(location?.notes ?? "")
     const [selectorTimezone, { timezone }] = useTimezoneSelector(location?.timezone, SelectorStyle.Field)
