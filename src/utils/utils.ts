@@ -34,3 +34,7 @@ export function useTimeUpdater() {
         return () => clearInterval(int)
     }, [])
 }
+
+export function getLocalTimezone() {
+    return DateTime.now().zoneName
+}

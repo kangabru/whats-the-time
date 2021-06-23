@@ -30,16 +30,16 @@ export default function EditTimezone({ isOpen, close, location }: { isOpen: bool
         </Dialog.Title>
 
         <div class="row justify-evenly bg-white space-x-3">
-            <div class="w-full max-w-xxs">
+            <div class="w-full max-w-xxs space-y-1">
                 <label htmlFor="names" class="block text-sm font-medium text-gray-700">Notes</label>
                 <input type="text" value={notes} onInput={e => setNotes(e.currentTarget.value)} placeholder="Offshore Team"
                     class={join(
-                        "block w-full mt-1 border-gray-300 rounded-lg shadow-sm text-sm",
+                        "block w-full border-gray-300 rounded-lg shadow-sm text-sm",
                         "focus:outline-none focus:ring-2 focus:ring-opacity-75 focus:ring-gray focus:border-white",
                     )} />
             </div>
 
-            <div class="w-full max-w-xxs">
+            <div class="w-full max-w-xxs space-y-1">
                 <div class="block text-sm font-medium text-gray-700">Timezone</div>
                 {selectorTimezone}
             </div>

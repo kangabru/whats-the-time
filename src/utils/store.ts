@@ -1,8 +1,8 @@
-import { DateTime } from 'luxon';
 import create, { GetState, SetState, State } from 'zustand';
 import { devtools } from 'zustand/middleware';
 import { clearStorage, getStorage, setStorage, StorageState } from './storage';
 import { Location, Time } from './types';
+import { getLocalTimezone } from './utils';
 
 /** Creates a zustand store pre-configured to use with redux dev tools. */
 export function zustand<T extends State>(creator: (get: GetState<T>, set: (name: string, partial: Partial<T>) => void, setRaw: SetState<T>) => T) {
@@ -14,7 +14,8 @@ export function zustand<T extends State>(creator: (get: GetState<T>, set: (name:
 }
 
 type AppState = {
-    timezone: DateTime, // Time to compare all other times to in the dashboard
+    timezone: string, // Time to compare all other times to in the dashboard
+    setTimezone(_: string | undefined): void,
 
     times: Time[],
     addTime(_: Time): void,
@@ -32,10 +33,12 @@ const initState = getStorage()
 
 /** zustand for state management  */
 const useAppState = zustand<AppState>((get, set) => ({
-    timezone: DateTime.now(),
+    ...initState,
 
-    locations: initState.locations,
-    times: initState.times,
+    setTimezone: function (_timezone: string | undefined) {
+        const timezone = _timezone ?? getLocalTimezone()
+        set('Set timezone', viaStorage({ timezone }))
+    },
 
     addTime: function (time: Time) {
         const { times } = get()
@@ -49,8 +52,6 @@ const useAppState = zustand<AppState>((get, set) => ({
     },
 
     setLocation: function (location: Location, lastLocation?: Location) {
-        console.log(location, lastLocation);
-
         const { locations } = get()
         const key = lastLocation?.timezone ?? location.timezone
         const index = locations.findIndex(l => l.timezone === key)

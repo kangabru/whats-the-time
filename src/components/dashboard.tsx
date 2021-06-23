@@ -10,14 +10,13 @@ import EditSettings from './menus/settings-modal';
 import TimezoneMenu from './menus/timezone-menu';
 import EditTimezone from './menus/timezone-modal';
 import { toTimeOption } from './selectors/time';
-import { useLocalTimezone } from './selectors/timezone';
 
 const classTdHead = "px-6 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
 const classTdHeadCenter = join(classTdHead, "text-center")
 const classTdBody = "px-6 py-3.5 whitespace-nowrap text-sm text-gray-900"
 
 export default function TimeDashboard() {
-    const here = useLocalTimezone()
+    const here = useAppState(s => s.timezone)
     const times = useAppState(s => s.times).map(toTimeOption).map(t => t.name)
     const locations = useAppState(s => s.locations)
 

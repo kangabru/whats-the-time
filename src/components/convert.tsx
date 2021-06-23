@@ -1,12 +1,13 @@
 import { DateTime } from 'luxon';
 import { h } from 'preact';
-import useTimeSelector, { useNow as useLocalNow } from './selectors/time';
-import useTimezoneSelector, { useLocalTimezone } from './selectors/timezone';
+import useAppState from '../utils/store';
 import { prettyTime } from '../utils/utils';
+import useTimeSelector, { useNow as useLocalNow } from './selectors/time';
+import useTimezoneSelector from './selectors/timezone';
 
 export default function TimeConverter() {
     const now = useLocalNow()
-    const here = useLocalTimezone()
+    const here = useAppState(s => s.timezone)
 
     const [selectorTimezoneIn, timezoneIn] = useTimezoneSelector("America/New_York")
     const [selectorTimezoneWhen, timezoneWhen] = useTimezoneSelector(here)

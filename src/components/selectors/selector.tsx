@@ -18,7 +18,7 @@ export enum SelectorStyle { Raised, Field }
 
 export default function Selector<T>({ value, options, onChange, style, toStr, toKey }: SelectorProps<T>) {
     return <Listbox value={value} onChange={onChange}>
-        <div className="relative mt-1 w-full max-w-xxs">
+        <div className="relative w-full max-w-xxs">
             <Listbox.Button className={join(
                 "relative w-full py-2 pl-3 pr-10 text-left bg-white rounded-lg cursor-default text-sm",
                 "focus:outline-none focus:ring-2 focus:ring-opacity-75 focus:ring-gray",

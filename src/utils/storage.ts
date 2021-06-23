@@ -1,9 +1,11 @@
 import { Location, Time } from './types';
+import { getLocalTimezone } from './utils';
 
 const KEY_DASHBOARD = 'dashboard'
 
 // Dev note: Changes here should be accompanied by a version change and handled correctly in code
 export type StorageState = {
+    timezone: string,
     times: Time[],
     locations: Location[],
 }
@@ -25,6 +27,7 @@ export function clearStorage() {
 }
 
 const defaultState: StorageState = {
+    timezone: getLocalTimezone(),
     locations: [
         { timezone: 'America/Los_Angeles', notes: 'LA' },
         { timezone: 'America/New_York', notes: 'NYC' },
