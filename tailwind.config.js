@@ -4,6 +4,9 @@
 * Def: https://github.com/tailwindcss/tailwindcss/blob/master/stubs/defaultConfig.stub.js
 */
 
+const colors = require('tailwindcss/colors')
+const withDefaultColour = (colours) => ({ ...colours, DEFAULT: colours[500] })
+
 module.exports = {
     purge: [
         "./src/**/*.html",
@@ -14,6 +17,17 @@ module.exports = {
     ],
     theme: {
         extend: {
+            colors: {
+                green: withDefaultColour(colors.green),
+                gray: withDefaultColour(colors.trueGray),
+                red: withDefaultColour(colors.red),
+                yellow: withDefaultColour(colors.yellow),
+                orange: withDefaultColour(colors.orange),
+                blue: withDefaultColour(colors.blue),
+                indigo: withDefaultColour(colors.indigo),
+                purple: withDefaultColour(colors.purple),
+                pink: withDefaultColour(colors.pink),
+            },
             maxWidth: {
                 xxs: '12rem'
             }
