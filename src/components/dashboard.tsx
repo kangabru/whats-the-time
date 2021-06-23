@@ -49,7 +49,7 @@ function LocationRow(location: Location) {
     return <tr class="bg-white rounded-lg overflow-hidden my-3">
         <td className="px-6 py-4 whitespace-nowrap">
             <div className="flex items-center">
-                <TimezoneMenu />
+                <TimezoneMenu location={location} />
                 <div class="ml-4">
                     <div class="text-sm font-medium text-gray-900">{location.notes}</div>
                     <div class="text-sm text-gray-500">{location.timezone}</div>

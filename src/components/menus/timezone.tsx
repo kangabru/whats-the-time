@@ -1,9 +1,13 @@
 import { Menu, Transition } from '@headlessui/react'
-import { MenuIcon, PencilIcon, ChevronUpIcon, ChevronDownIcon, TrashIcon } from '@heroicons/react/solid'
+import { ChevronDownIcon, ChevronUpIcon, MenuIcon, PencilIcon, TrashIcon } from '@heroicons/react/solid'
 import { Fragment, h, JSX } from 'preact'
+import useAppState from '../../utils/store'
+import { Location } from '../../utils/types'
 import { join } from '../../utils/utils'
 
-export default function TimezoneMenu() {
+export default function TimezoneMenu({ location }: { location: Location }) {
+    const { removeLocation } = useAppState()
+
     return <Menu as="div" className="relative inline-block text-left">
         <Menu.Button title="Edit" className="flex-shrink-0 rounded focus:outline-none focus:ring-2 focus:ring-gray focus:ring-opacity-75 opacity-50 hover:opacity-100">
             <MenuIcon class="h-6 w-6" />
@@ -26,7 +30,7 @@ export default function TimezoneMenu() {
                     <MenuButton text="Move down" onClick={console.log} icon={ChevronDownIcon} />
                 </div>
                 <div className="px-1 py-1">
-                    <MenuButton text="Delete" onClick={console.log} icon={TrashIcon} class="text-red-600" classActive="bg-red-100 underline" />
+                    <MenuButton text="Delete" onClick={() => removeLocation(location)} icon={TrashIcon} class="text-red-600" classActive="bg-red-100 underline" />
                 </div>
             </Menu.Items>
         </Transition>
