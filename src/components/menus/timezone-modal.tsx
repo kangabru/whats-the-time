@@ -3,15 +3,16 @@ import { DateTime } from 'luxon';
 import { Fragment, h } from 'preact';
 import { useMemo, useState } from 'preact/hooks';
 import useAppState from '../../utils/store';
+import { Location } from '../../utils/types';
 import { join } from '../../utils/utils';
 import { SelectorStyle } from '../selectors/selector';
 import useTimezoneSelector from '../selectors/timezone';
 
-export default function CreateTimezone({ isOpen, close }: { isOpen: boolean, close: () => void }) {
+export default function EditTimezone({ isOpen, close, location }: { isOpen: boolean, close: () => void, location?: Location }) {
     const { setLocation } = useAppState()
 
-    const [notes, setNotes] = useState("")
-    const [selectorTimezone, { timezone }] = useTimezoneSelector(undefined, SelectorStyle.Field)
+    const [notes, setNotes] = useState(location?.notes ?? "")
+    const [selectorTimezone, { timezone }] = useTimezoneSelector(location?.timezone, SelectorStyle.Field)
 
     const isValidNotes = !!notes
     const isValidZone = useMemo(() => DateTime.now().setZone(timezone).isValid, [timezone])
@@ -53,7 +54,7 @@ export default function CreateTimezone({ isOpen, close }: { isOpen: boolean, clo
                 >
                     <div className="inline-block w-full max-w-md p-6 my-8 space-y-4 text-left align-middle transition-all transform bg-white shadow-xl rounded-2xl">
                         <Dialog.Title as="h3" className="text-lg font-medium leading-6 text-gray-900">
-                            Create timezone
+                            {!!location ? "Edit" : "Create"} timezone
                         </Dialog.Title>
 
                         <div class="row justify-evenly bg-white space-x-3">

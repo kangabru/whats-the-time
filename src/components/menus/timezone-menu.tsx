@@ -6,7 +6,7 @@ import useAppState from '../../utils/store'
 import { Location } from '../../utils/types'
 import { join } from '../../utils/utils'
 
-export default function TimezoneMenu({ location }: { location: Location }) {
+export default function TimezoneMenu({ location, edit }: { location: Location, edit: () => void }) {
     const { moveLocation, removeLocation } = useAppState()
     const [ref, top] = useMenuPosition()
     return <Menu as="div" className="inline-block text-left">
@@ -26,7 +26,7 @@ export default function TimezoneMenu({ location }: { location: Location }) {
                 style={{ '--tw-translate-y': `calc(${top}px - 50%)` }}
                 className="absolute z-20 top-0 left-14 transform w-32 bg-white origin-left divide-y divide-gray-100 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                 <div className="px-1 py-1 ">
-                    <MenuButton text="Edit" onClick={console.log} icon={PencilIcon} />
+                    <MenuButton text="Edit" onClick={edit} icon={PencilIcon} />
                 </div>
                 <div className="px-1 py-1">
                     <MenuButton text="Move up" onClick={() => moveLocation(location, true)} icon={ChevronUpIcon} />
