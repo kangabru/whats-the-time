@@ -1,26 +1,33 @@
 import { Location, Time } from './types';
+import { getLocalTimezone } from './utils';
 
 const KEY_DASHBOARD = 'dashboard'
 
 // Dev note: Changes here should be accompanied by a version change and handled correctly in code
 export type StorageState = {
+    timezone: string,
     times: Time[],
     locations: Location[],
 }
 
-export function getState(): StorageState {
+export function getStorage(): StorageState {
     const version = localStorage.getItem(KEY_DASHBOARD)
     return version
         ? JSON.parse(localStorage.getItem(KEY_DASHBOARD) as string) as StorageState
-        : setState(defaultState)
+        : setStorage(defaultState)
 }
 
-export function setState(state: StorageState): StorageState {
+export function setStorage(state: StorageState): StorageState {
     localStorage.setItem(KEY_DASHBOARD, JSON.stringify(state))
-    return getState()
+    return getStorage()
+}
+
+export function clearStorage() {
+    localStorage.clear()
 }
 
 const defaultState: StorageState = {
+    timezone: getLocalTimezone(),
     locations: [
         { timezone: 'America/Los_Angeles', notes: 'LA' },
         { timezone: 'America/New_York', notes: 'NYC' },

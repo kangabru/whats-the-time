@@ -1,8 +1,8 @@
-import { DateTime } from 'luxon';
 import create, { GetState, SetState, State } from 'zustand';
 import { devtools } from 'zustand/middleware';
-import { getState, setState, StorageState } from './storage';
+import { clearStorage, getStorage, setStorage, StorageState } from './storage';
 import { Location, Time } from './types';
+import { getLocalTimezone } from './utils';
 
 /** Creates a zustand store pre-configured to use with redux dev tools. */
 export function zustand<T extends State>(creator: (get: GetState<T>, set: (name: string, partial: Partial<T>) => void, setRaw: SetState<T>) => T) {
@@ -14,7 +14,8 @@ export function zustand<T extends State>(creator: (get: GetState<T>, set: (name:
 }
 
 type AppState = {
-    timezone: DateTime, // Time to compare all other times to in the dashboard
+    timezone: string, // Time to compare all other times to in the dashboard
+    setTimezone(_: string | undefined): void,
 
     times: Time[],
     addTime(_: Time): void,
@@ -24,16 +25,20 @@ type AppState = {
     moveLocation(_: Location, up: boolean): void,
     setLocation(_: Location, lastTimezone?: Location): void,
     removeLocation(_: Location): void,
+
+    reset: () => void,
 }
 
-const initState = getState()
+const initState = getStorage()
 
 /** zustand for state management  */
 const useAppState = zustand<AppState>((get, set) => ({
-    timezone: DateTime.now(),
+    ...initState,
 
-    locations: initState.locations,
-    times: initState.times,
+    setTimezone: function (_timezone: string | undefined) {
+        const timezone = _timezone ?? getLocalTimezone()
+        set('Set timezone', viaStorage({ timezone }))
+    },
 
     addTime: function (time: Time) {
         const { times } = get()
@@ -47,8 +52,6 @@ const useAppState = zustand<AppState>((get, set) => ({
     },
 
     setLocation: function (location: Location, lastLocation?: Location) {
-        console.log(location, lastLocation);
-
         const { locations } = get()
         const key = lastLocation?.timezone ?? location.timezone
         const index = locations.findIndex(l => l.timezone === key)
@@ -82,12 +85,17 @@ const useAppState = zustand<AppState>((get, set) => ({
             set('Move down', viaStorage({ locations }))
         }
     },
+
+    reset: function () {
+        clearStorage()
+        set('Reset', getStorage())
+    },
 } as AppState))
 
 /** Saves the state to local storage then returns the saved state. Using this function ensure the data being saved it always correct. */
 function viaStorage(state: Partial<StorageState>): Partial<StorageState> {
-    const localState = getState()
-    const newState = setState({ ...localState, ...state })
+    const localState = getStorage()
+    const newState = setStorage({ ...localState, ...state })
     // @ts-ignore
     return Object.keys(state).reduce((result, key) => ({ ...result, [key]: newState[key] }), {})
 }

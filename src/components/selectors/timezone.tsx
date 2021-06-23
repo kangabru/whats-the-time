@@ -1,4 +1,3 @@
-import { DateTime } from 'luxon';
 import { h, JSX } from 'preact';
 import { useMemo, useState } from 'preact/hooks';
 import timezones from '../../data/timezones';
@@ -13,15 +12,9 @@ export type TimezoneOption = {
 }
 
 export default function useTimezoneSelector(defaultTimezone: Timezone = "UTC", style?: SelectorStyle): [JSX.Element, TimezoneOption] {
-    const options = useTimezone()
-
-    const defaultOption = useMemo(() => {
-        const option = options.find(o => o.timezone === defaultTimezone)
-        return option ?? zoneToOption(defaultTimezone)
-    }, [defaultTimezone])
-
+    const options = useTimezoneOptions()
+    const defaultOption = useTimezoneOption(options, defaultTimezone)
     const [option, setOption] = useState<TimezoneOption>(defaultOption)
-
     return [
         <Selector<TimezoneOption>
             options={options} value={option} onChange={setOption}
@@ -31,7 +24,7 @@ export default function useTimezoneSelector(defaultTimezone: Timezone = "UTC", s
     ]
 }
 
-function useTimezone(): TimezoneOption[] {
+export function useTimezoneOptions(): TimezoneOption[] {
     return useMemo(() => Object.entries(timezones)
         .map(([groupName, groupZones]) => groupToOptions(groupName, groupZones))
         .reduce((result, group) => [...result, ...group], [])
@@ -47,6 +40,9 @@ function zoneToOption(timezone: Timezone): TimezoneOption {
     return { timezone, name: prettyTimezone(timezone) }
 }
 
-export function useLocalTimezone() {
-    return useMemo(() => DateTime.now().zoneName, [])
+export function useTimezoneOption(options: TimezoneOption[], timezone: Timezone = "UTC") {
+    return useMemo(() => {
+        const option = options.find(o => o.timezone === timezone)
+        return option ?? zoneToOption(timezone)
+    }, [timezone])
 }
