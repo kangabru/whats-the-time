@@ -9,7 +9,7 @@ setDefaultSystemLocale()
 render(<App />, document.getElementById('root') as HTMLElement)
 
 function App() {
-    return <div class="h-full min-h-screen col items-center justify-center text-2xl">
+    return <div class="h-full min-h-screen flex flex-col items-center sm:flex-row sm:justify-evenly sm:flex-wrap text-2xl">
         <TimeConverter />
         <TimeDashBoard />
     </div>

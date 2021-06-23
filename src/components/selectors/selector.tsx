@@ -20,7 +20,7 @@ export default function Selector<T>({ value, options, onChange, style, toStr, to
     return <Listbox value={value} onChange={onChange}>
         <div className="relative mt-1 w-full max-w-xxs">
             <Listbox.Button className={join(
-                "relative w-full py-2 pl-3 pr-10 text-left bg-white rounded-lg cursor-default sm:text-sm",
+                "relative w-full py-2 pl-3 pr-10 text-left bg-white rounded-lg cursor-default text-sm",
                 "focus:outline-none focus:ring-2 focus:ring-opacity-75 focus:ring-gray",
                 (style === SelectorStyle.Raised || style === undefined) && "shadow-md focus:border-gray-500",
                 style === SelectorStyle.Field && "border border-gray-300 shadow-sm focus:border-white",
@@ -39,7 +39,7 @@ export default function Selector<T>({ value, options, onChange, style, toStr, to
                 leaveFrom="opacity-100"
                 leaveTo="opacity-0"
             >
-                <Listbox.Options className="absolute z-10 w-full mt-1 overflow-auto text-base bg-white rounded-md shadow-lg max-h-60 ring-1 ring-gray ring-opacity-5 focus:outline-none sm:text-sm">
+                <Listbox.Options className="absolute z-10 w-full mt-1 overflow-auto text-base bg-white rounded-md shadow-lg max-h-60 ring-1 ring-gray ring-opacity-5 focus:outline-none text-sm">
                     {options.map(option => (
                         <Listbox.Option key={toKey(option)} value={option} disabled={option.disabled}
                             className={({ active, disabled }) => join(

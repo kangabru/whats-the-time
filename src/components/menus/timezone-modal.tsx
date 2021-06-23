@@ -62,7 +62,7 @@ export default function EditTimezone({ isOpen, close, location }: { isOpen: bool
                                 <label htmlFor="names" class="block text-sm font-medium text-gray-700">Notes</label>
                                 <input type="text" value={notes} onInput={e => setNotes(e.currentTarget.value)} placeholder="Offshore Team"
                                     class={join(
-                                        "block w-full mt-1 border-gray-300 rounded-lg shadow-sm sm:text-sm",
+                                        "block w-full mt-1 border-gray-300 rounded-lg shadow-sm text-sm",
                                         "focus:outline-none focus:ring-2 focus:ring-opacity-75 focus:ring-gray focus:border-white",
                                     )} />
                             </div>

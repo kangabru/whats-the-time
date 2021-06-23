@@ -26,22 +26,29 @@ export default function TimeDashboard() {
 
     return <RelativeParent class="flex flex-col">
         <EditTimezone isOpen={createIsOpen} close={closeCreate} />
-        <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
-            <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
-                <div class="shadow-md overflow-hidden border-b border-gray-200 sm:rounded-lg">
-                    <table class="min-w-full divide-y divide-gray-200">
-                        <thead class="bg-gray-50">
-                            <tr>
-                                <td scope="col" class={join(classTdHead, 'pl-16')}>Notes</td>
-                                <td scope="col" class={classTdHeadCenter}>Now</td>
-                                {times.map(t => <td scope="col" class={classTdHeadCenter} key={t}>{t}</td>)}
-                            </tr>
-                        </thead>
-                        <tbody class="bg-white divide-y divide-gray-200">
-                            <LocationRow key='here' notes="Local" timezone={here} create={openCreate} />
-                            {locations.map((l, i) => <LocationRow key={`${l.timezone}-${i}`} {...l} />)}
-                        </tbody>
-                    </table>
+        <div class=" w-full sm:w-auto overflow-x-scroll sm:overflow-x-hidden px-2 py-5">
+            <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+                <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
+                    <div class="shadow-md overflow-hidden border-b border-gray-200 rounded-lg">
+                        <table class="min-w-full divide-y divide-gray-200">
+                            <thead class="bg-gray-50">
+                                <tr>
+                                    <td scope="col" class={join(classTdHead, 'row space-x-4')}>
+                                        <button title="Settings" onClick={openSettings} class="flex-shrink-0 -ml-1 rounded focus:outline-none focus:ring-2 focus:ring-gray focus:ring-opacity-75 opacity-50 hover:opacity-100">
+                                            <CogIcon class="w-6 h-6" />
+                                        </button>
+                                        <span>Notes</span>
+                                    </td>
+                                    <td scope="col" class={classTdHeadCenter}>Now</td>
+                                    {times.map(t => <td scope="col" class={classTdHeadCenter} key={t}>{t}</td>)}
+                                </tr>
+                            </thead>
+                            <tbody class="bg-white divide-y divide-gray-200">
+                                <LocationRow key='here' notes="Local" timezone={here} create={openCreate} />
+                                {locations.map((l, i) => <LocationRow key={`${l.timezone}-${i}`} {...l} />)}
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
