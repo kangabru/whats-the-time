@@ -34,6 +34,7 @@
         "@tailwindcss/forms": "^0.3.3",
         "luxon": "^1.27.0",
         "preact": "^10.5.12",
+        "react-use-measure": "^2.0.4",
         "zustand": "^3.5.4"
     },
     "resolutions": {

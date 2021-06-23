@@ -2,6 +2,7 @@ import { PlusIcon } from '@heroicons/react/solid';
 import { DateTime } from 'luxon';
 import { h } from 'preact';
 import { useState } from 'preact/hooks';
+import { RelativeParent } from '../utils/relative-context';
 import useAppState from '../utils/store';
 import { Location } from '../utils/types';
 import { join, prettyTime, prettyTimezone, useTimeUpdater } from '../utils/utils';
@@ -23,7 +24,7 @@ export default function TimeDashboard() {
     const closeCreate = () => setCreateIsOpen(false)
     const openCreate = () => setCreateIsOpen(true)
 
-    return <div class="flex flex-col">
+    return <RelativeParent class="flex flex-col">
         <CreateTimezone isOpen={createIsOpen} close={closeCreate} />
         <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
             <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
@@ -44,7 +45,7 @@ export default function TimeDashboard() {
                 </div>
             </div>
         </div>
-    </div>
+    </RelativeParent>
 }
 
 function LocationRow({ create, ...location }: Location & { create?: () => void }) {
