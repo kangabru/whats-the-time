@@ -30,7 +30,7 @@ export default function TimeDashboard() {
                         </thead>
                         <tbody class="bg-white divide-y divide-gray-200">
                             <LocationRow key='here' notes="Local" timezone={here} />
-                            {locations.map(l => <LocationRow key={l.timezone} {...l} />)}
+                            {locations.map(l => <LocationRow key={l.timezone} {...l} edit />)}
                         </tbody>
                     </table>
                 </div>
@@ -39,7 +39,7 @@ export default function TimeDashboard() {
     </div>
 }
 
-function LocationRow(location: Location) {
+function LocationRow({ edit, ...location }: Location & { edit?: boolean }) {
     useTimeUpdater()
     const thereNow = DateTime.now().setZone(location.timezone)
 
@@ -49,7 +49,7 @@ function LocationRow(location: Location) {
     return <tr class="bg-white rounded-lg overflow-hidden my-3">
         <td className="px-6 py-4 whitespace-nowrap">
             <div className="flex items-center">
-                <TimezoneMenu location={location} />
+                {edit ? <TimezoneMenu location={location} /> : <div class="w-6"></div>}
                 <div class="ml-4">
                     <div class="text-sm font-medium text-gray-900">{location.notes}</div>
                     <div class="text-sm text-gray-500">{location.timezone}</div>
