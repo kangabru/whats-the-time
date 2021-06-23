@@ -1,7 +1,7 @@
 import { DateTime } from 'luxon';
 import create, { GetState, SetState, State } from 'zustand';
 import { devtools } from 'zustand/middleware';
-import { getState, setState, StorageState } from './storage';
+import { clearStorage, getStorage, setStorage, StorageState } from './storage';
 import { Location, Time } from './types';
 
 /** Creates a zustand store pre-configured to use with redux dev tools. */
@@ -24,9 +24,11 @@ type AppState = {
     moveLocation(_: Location, up: boolean): void,
     setLocation(_: Location, lastTimezone?: Location): void,
     removeLocation(_: Location): void,
+
+    reset: () => void,
 }
 
-const initState = getState()
+const initState = getStorage()
 
 /** zustand for state management  */
 const useAppState = zustand<AppState>((get, set) => ({
@@ -82,12 +84,17 @@ const useAppState = zustand<AppState>((get, set) => ({
             set('Move down', viaStorage({ locations }))
         }
     },
+
+    reset: function () {
+        clearStorage()
+        set('Reset', getStorage())
+    },
 } as AppState))
 
 /** Saves the state to local storage then returns the saved state. Using this function ensure the data being saved it always correct. */
 function viaStorage(state: Partial<StorageState>): Partial<StorageState> {
-    const localState = getState()
-    const newState = setState({ ...localState, ...state })
+    const localState = getStorage()
+    const newState = setStorage({ ...localState, ...state })
     // @ts-ignore
     return Object.keys(state).reduce((result, key) => ({ ...result, [key]: newState[key] }), {})
 }

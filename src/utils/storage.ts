@@ -8,16 +8,20 @@ export type StorageState = {
     locations: Location[],
 }
 
-export function getState(): StorageState {
+export function getStorage(): StorageState {
     const version = localStorage.getItem(KEY_DASHBOARD)
     return version
         ? JSON.parse(localStorage.getItem(KEY_DASHBOARD) as string) as StorageState
-        : setState(defaultState)
+        : setStorage(defaultState)
 }
 
-export function setState(state: StorageState): StorageState {
+export function setStorage(state: StorageState): StorageState {
     localStorage.setItem(KEY_DASHBOARD, JSON.stringify(state))
-    return getState()
+    return getStorage()
+}
+
+export function clearStorage() {
+    localStorage.clear()
 }
 
 const defaultState: StorageState = {
