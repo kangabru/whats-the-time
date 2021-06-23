@@ -14,11 +14,18 @@ export type TimezoneOption = {
 
 export default function useTimezoneSelector(defaultTimezone: Timezone = "UTC", style?: SelectorStyle): [JSX.Element, TimezoneOption] {
     const options = useTimezone()
-    const [option, setOption] = useState<TimezoneOption>(zoneToOption(defaultTimezone))
+
+    const defaultOption = useMemo(() => {
+        const option = options.find(o => o.timezone === defaultTimezone)
+        return option ?? zoneToOption(defaultTimezone)
+    }, [defaultTimezone])
+
+    const [option, setOption] = useState<TimezoneOption>(defaultOption)
+
     return [
-        <Selector
+        <Selector<TimezoneOption>
             options={options} value={option} onChange={setOption}
-            style={style} repr={r => r.name}
+            style={style} toStr={r => r.name} toKey={r => r.timezone}
         />,
         option
     ]

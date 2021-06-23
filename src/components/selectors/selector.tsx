@@ -7,15 +7,16 @@ export type Selectable<T> = T & { disabled?: boolean }
 
 export type SelectorProps<T> = {
     value: Selectable<T>,
-    repr: (value: T) => string,
     options: Selectable<T>[],
     onChange: (value: T) => void,
     style?: SelectorStyle,
+    toStr: (value: T) => string,
+    toKey: (value: T) => string,
 }
 
 export enum SelectorStyle { Raised, Field }
 
-export default function Selector<T>({ value, repr, options, onChange, style }: SelectorProps<T>) {
+export default function Selector<T>({ value, options, onChange, style, toStr, toKey }: SelectorProps<T>) {
     return <Listbox value={value} onChange={onChange}>
         <div className="relative mt-1 w-full max-w-xxs">
             <Listbox.Button className={join(
@@ -24,7 +25,7 @@ export default function Selector<T>({ value, repr, options, onChange, style }: S
                 (style === SelectorStyle.Raised || style === undefined) && "shadow-md focus:border-gray-500",
                 style === SelectorStyle.Field && "border border-gray-300 shadow-sm focus:border-white",
             )}>
-                <span className="block truncate">{repr(value)}</span>
+                <span className="block truncate">{toStr(value)}</span>
                 <span className="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
                     <SelectorIcon
                         className="w-5 h-5 text-gray-400"
@@ -39,8 +40,8 @@ export default function Selector<T>({ value, repr, options, onChange, style }: S
                 leaveTo="opacity-0"
             >
                 <Listbox.Options className="absolute z-10 w-full mt-1 overflow-auto text-base bg-white rounded-md shadow-lg max-h-60 ring-1 ring-gray ring-opacity-5 focus:outline-none sm:text-sm">
-                    {options.map((option, personIdx) => (
-                        <Listbox.Option key={personIdx} value={option} disabled={option.disabled}
+                    {options.map(option => (
+                        <Listbox.Option key={toKey(option)} value={option} disabled={option.disabled}
                             className={({ active, disabled }) => join(
                                 'cursor-default select-none relative py-2 pl-10 pr-4',
                                 active ? 'text-gray-900 bg-gray-100' : 'text-gray-900',
@@ -54,7 +55,7 @@ export default function Selector<T>({ value, repr, options, onChange, style }: S
                                         selected && 'font-medium',
                                         disabled && 'font-semibold uppercase',
                                     )}>
-                                        {repr(option)}
+                                        {toStr(option)}
                                     </span>
                                     {selected
                                         ? <span className='absolute inset-y-0 left-0 flex items-center pl-3'>

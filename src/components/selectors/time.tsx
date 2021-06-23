@@ -13,7 +13,13 @@ export type TimeOption = {
 export default function useTimeSelector(defaultTime: Time = { hour: 13 }): [JSX.Element, TimeOption] {
     const options = useMemo(() => times.map(toTimeOption), [])
     const [time, setTime] = useState<TimeOption>(toTimeOption(defaultTime))
-    return [<Selector value={time} options={options} onChange={setTime} repr={r => r.name} />, time]
+    return [
+        <Selector<TimeOption>
+            options={options} value={time} onChange={setTime}
+            toStr={r => r.name} toKey={r => r.name}
+        />,
+        time
+    ]
 }
 
 export function toTimeOption(time: Time) {
