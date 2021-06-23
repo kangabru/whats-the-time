@@ -19,7 +19,7 @@ export default function EditTimezone({ isOpen, close, location }: { isOpen: bool
     const isValid = isValidNotes && isValidZone
 
     const onClick = () => {
-        isValid && setLocation({ notes, timezone: timezone })
+        isValid && setLocation({ notes, timezone }, location)
         close()
     }
 
