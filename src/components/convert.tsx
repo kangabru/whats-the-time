@@ -1,3 +1,4 @@
+import InfoIcon from '@heroicons/react/solid/InformationCircleIcon';
 import { DateTime } from 'luxon';
 import { h } from 'preact';
 import useAppState from '../utils/store';
@@ -27,6 +28,10 @@ export default function TimeConverter() {
 
         <div class={classSelect}>
             <div class={classTextTiny}>in</div>
+            <a class="absolute bottom-full -right-4 opacity-60 hover:opacity-100 rounded-full focus-ring" title="Info" target="_blank"
+                href="https://en.wikipedia.org/wiki/List_of_tz_database_time_zones">
+                <InfoIcon class="w-5 h-5" />
+            </a>
             {selectorTimezoneIn}
         </div>
 
