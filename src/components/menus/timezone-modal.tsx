@@ -6,14 +6,16 @@ import useAppState from '../../utils/store';
 import { Location } from '../../utils/types';
 import { join } from '../../utils/utils';
 import { SelectorStyle } from '../selectors/selector';
-import useTimezoneSelector from '../selectors/timezone';
+import TimezoneSelector, { useTimezoneOptionArgs } from '../selectors/timezone';
 import Modal from './modal';
 
 export default function EditTimezone({ isOpen, close, location }: { isOpen: boolean, close: () => void, location?: Location }) {
     const setLocation = useAppState(s => s.setLocation)
 
     const [notes, setNotes] = useState(location?.notes ?? "")
-    const [selectorTimezone, { timezone }] = useTimezoneSelector(location?.timezone, SelectorStyle.Field)
+
+    const selectorArgs = useTimezoneOptionArgs(location?.timezone)
+    const timezone = selectorArgs.value.timezone
 
     const isValidNotes = !!notes
     const isValidZone = useMemo(() => DateTime.now().setZone(timezone).isValid, [timezone])
@@ -41,7 +43,7 @@ export default function EditTimezone({ isOpen, close, location }: { isOpen: bool
 
             <div class="space-y-1">
                 <div class="block text-sm font-medium text-gray-700">Timezone</div>
-                {selectorTimezone}
+                <TimezoneSelector {...selectorArgs} style={SelectorStyle.Field} classSize='w-full' />
             </div>
         </div>
 

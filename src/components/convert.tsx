@@ -3,7 +3,7 @@ import { h } from 'preact';
 import useAppState from '../utils/store';
 import { prettyTime } from '../utils/utils';
 import useTimeSelector, { useNow as useLocalNow } from './selectors/time';
-import useTimezoneSelector from './selectors/timezone';
+import { useTimezoneSelector } from './selectors/timezone';
 
 export default function TimeConverter() {
     const now = useLocalNow()

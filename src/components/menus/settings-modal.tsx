@@ -3,8 +3,8 @@ import { LocationMarkerIcon } from '@heroicons/react/solid';
 import { h } from 'preact';
 import { useState } from 'preact/hooks';
 import useAppState from '../../utils/store';
-import Selector, { SelectorStyle } from '../selectors/selector';
-import { TimezoneOption, useTimezoneOption, useTimezoneOptions } from '../selectors/timezone';
+import { SelectorStyle } from '../selectors/selector';
+import TimezoneSelector, { useFindTimezoneOption, useTimezoneOptions } from '../selectors/timezone';
 import Modal from './modal';
 
 export default function EditSettings({ isOpen, close: closeModal }: { isOpen: boolean, close: () => void }) {
@@ -52,20 +52,20 @@ function DefaultLocationSelector() {
     const resetTimezone = () => setTimezone(undefined)
 
     const options = useTimezoneOptions()
-    const option = useTimezoneOption(options, timezone)
+    const option = useFindTimezoneOption(options, timezone)
 
-    return <div class="flex flex-col space-y-2 mx-auto">
-        <div class="flex items-end space-x-2 justify-center">
-            <div class="space-y-1.5">
-                <p class="text-sm">Local timezone</p>
-                <Selector<TimezoneOption>
-                    options={options} value={option} onChange={o => setTimezone(o.timezone)}
-                    style={SelectorStyle.Field} toStr={r => r.name} toKey={r => r.timezone}
-                />
-            </div>
+    return <div class="space-y-2">
+        <p class="text-sm">Local timezone</p>
+        <div class="row space-x-2">
+            <TimezoneSelector
+                options={options} value={option}
+                onChange={o => setTimezone(o.timezone)}
+                style={SelectorStyle.Field}
+                classSize='w-full'
+            />
 
             <button title="Reset timezone" onClick={resetTimezone}
-                class="block p-1.5 border border-gray-300 rounded-lg shadow-sm text-sm focus:outline-none focus:ring-2 focus:ring-opacity-75 focus:ring-gray focus:border-white">
+                class="block p-2 border border-gray-300 rounded-lg shadow-sm text-sm focus:outline-none focus:ring-2 focus:ring-opacity-75 focus:ring-gray focus:border-white">
                 <LocationMarkerIcon class="w-6 h-6" />
             </button>
         </div>
