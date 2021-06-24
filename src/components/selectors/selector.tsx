@@ -17,19 +17,22 @@ export type SelectorProps<T> = {
     classSize?: string,
 }
 
-export enum SelectorStyle { Raised, Field }
+export enum SelectorStyle { Raised, Field, DashboardTime }
 
-export default function Selector<T>({ value, options, onChange, style, classSize: classRoot, toStr, toKey }: SelectorProps<T>) {
+export default function Selector<T>({ value, options, onChange, style, classSize, toStr, toKey }: SelectorProps<T>) {
     return <Listbox value={value} onChange={onChange}>
-        <div class={join("relative text-left", classRoot ?? 'w-full sm:w-64')}>
+        <div class={join("relative text-left", classSize ?? 'w-full sm:w-64')}>
             <Listbox.Button className={join(
-                "relative w-full py-2 pl-3 pr-10 text-left bg-white rounded-lg cursor-default",
-                "focus-ring",
+                "group relative w-full py-2 pl-3 pr-10 rounded-lg cursor-default focus-ring",
                 (style === SelectorStyle.Raised || style === undefined) && "shadow-md focus:border-gray-500",
                 style === SelectorStyle.Field && "border border-gray-300 shadow-sm focus:border-white",
+                style === SelectorStyle.DashboardTime ? "hover:bg-white focus:bg-white text-center" : "bg-white text-left",
             )}>
                 <span class="block truncate">{toStr(value)}</span>
-                <span class="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
+                <span class={join(
+                    "absolute inset-y-0 right-0 pr-2 items-center pointer-events-none",
+                    style === SelectorStyle.DashboardTime ? "hidden group-hover:flex" : "flex",
+                )}>
                     <SelectorIcon
                         className="w-5 h-5 text-gray-400"
                         aria-hidden="true"
@@ -42,7 +45,10 @@ export default function Selector<T>({ value, options, onChange, style, classSize
                 leaveFrom="opacity-100"
                 leaveTo="opacity-0"
             >
-                <Listbox.Options className="absolute z-10 w-full mt-1 overflow-auto bg-white rounded-md shadow-lg max-h-60 ring-1 ring-gray ring-opacity-5 focus:outline-none">
+                <Listbox.Options className={join(
+                    "absolute z-10 mt-1 overflow-auto bg-white rounded-md shadow-lg max-h-60 ring-1 ring-gray ring-opacity-5 focus:outline-none",
+                    style === SelectorStyle.DashboardTime ? "w-28" : "w-full",
+                )}>
                     {options.map(option => (
                         <Listbox.Option key={toKey(option)} value={option} disabled={option.disabled}
                             className={({ active, disabled }) => join(
