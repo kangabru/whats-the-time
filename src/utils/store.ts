@@ -18,8 +18,7 @@ type AppState = {
     setTimezone(_: string | undefined): void,
 
     times: Time[],
-    addTime(_: Time): void,
-    removeTime(_: Time): void,
+    updateTime(index: number, _: Time): void,
 
     locations: Location[],
     moveLocation(_: Location, up: boolean): void,
@@ -40,15 +39,12 @@ const useAppState = zustand<AppState>((get, set) => ({
         set('Set timezone', viaStorage({ timezone }))
     },
 
-    addTime: function (time: Time) {
+    updateTime: function (index: number, time: Time) {
         const { times } = get()
-        times.push(time)
-        set('Add time', viaStorage({ times }))
-    },
-    removeTime: function (time: Time) {
-        let { times } = get()
-        times = times.filter(t => t.hour !== time.hour)
-        set('Del time', viaStorage({ times }))
+        if (index >= 0 && index < times.length) {
+            times[index] = time
+            set('Add time', viaStorage({ times }))
+        }
     },
 
     setLocation: function (location: Location, lastLocation?: Location) {

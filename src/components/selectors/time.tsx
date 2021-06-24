@@ -21,10 +21,14 @@ export default function TimeSelector(props: TimeSelectorProps) {
 type TimeOptionArgs = Pick<SelectorProps<TimeOption>, 'options' | 'value' | 'onChange'>
 
 export function useTimeOptionArgs(defaultTime: Time = DEFAULT): TimeOptionArgs {
-    const options = useMemo(() => times.map(toTimeOption), [])
+    const options = useTimeOptions()
     const defaultOption = useFindTimeOption(options, defaultTime)
     const [value, onChange] = useState<TimeOption>(defaultOption)
     return { value, onChange, options }
+}
+
+export function useTimeOptions() {
+    return useMemo(() => times.map(toTimeOption), [])
 }
 
 export function toTimeOption(time: Time) {

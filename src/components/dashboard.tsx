@@ -11,7 +11,7 @@ import EditSettings from './menus/settings-modal';
 import TimezoneMenu from './menus/timezone-menu';
 import EditTimezone from './menus/timezone-modal';
 import { SelectorStyle } from './selectors/selector';
-import TimeSelector, { useTimeOptionArgs } from './selectors/time';
+import TimeSelector, { TimeOption, useFindTimeOption, useTimeOptions } from './selectors/time';
 
 const classTdHead = "px-6 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
 const classTdHeadCenter = join(classTdHead, "text-center")
@@ -49,6 +49,8 @@ export default function TimeDashboard() {
 
 function HeaderRow({ openSettings }: { openSettings: () => void }) {
     const times = useAppState(s => s.times)
+    const setTime = useAppState(s => s.updateTime)
+    const updateTime = (index: number) => (time: TimeOption) => setTime(index, time.time)
     return <tr>
         <td scope="col" class={join(classTdHead, 'row space-x-4')}>
             <button title="Settings" onClick={openSettings} class="flex-shrink-0 -ml-1 rounded focus-ring opacity-50 hover:opacity-100">
@@ -57,15 +59,17 @@ function HeaderRow({ openSettings }: { openSettings: () => void }) {
             <span>Notes</span>
         </td>
         <td scope="col" class={classTdHeadCenter}>Now</td>
-        {times.map(t => <td scope="col" class={classTdHeadCenter} key={t.hour}>
-            <HeaderTime time={t} />
+        {times.map((t, i) => <td scope="col" class={classTdHeadCenter} key={t.hour}>
+            <HeaderTime time={t} onChange={updateTime(i)} />
         </td>)}
     </tr>
 }
 
-function HeaderTime({ time }: { time: Time }) {
-    const args = useTimeOptionArgs(time)
-    return <TimeSelector {...args} style={SelectorStyle.DashboardTime} classSize='w-full transform translate-x-3' />
+function HeaderTime({ time, onChange }: { time: Time, onChange: (_: TimeOption) => void }) {
+    const options = useTimeOptions()
+    const option = useFindTimeOption(options, time)
+    return <TimeSelector value={option} onChange={onChange} options={options}
+        style={SelectorStyle.DashboardTime} classSize='w-full transform translate-x-3' />
 }
 
 function LocationRow({ create, ...location }: Location & { create?: () => void }) {
