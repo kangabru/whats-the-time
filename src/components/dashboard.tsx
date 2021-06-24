@@ -74,10 +74,11 @@ function HeaderTime({ time, onChange }: { time: Time, onChange: (_: TimeOption) 
 
 function LocationRow({ create, ...location }: Location & { create?: () => void }) {
     useTimeUpdater()
-    const thereNow = DateTime.now().setZone(location.timezone)
+    const hereNow = DateTime.now()
+    const thereNow = hereNow.setZone(location.timezone)
 
     const times = useAppState(s => s.times)
-    const thereTimes = times.map(({ hour }) => DateTime.now().set({ hour, minute: 0 }).setZone(location.timezone))
+    const thereTimes = times.map(({ hour }) => hereNow.set({ hour, minute: 0 }).setZone(location.timezone))
 
     const [editing, setCreateIsOpen] = useState(false)
     const edit = () => setCreateIsOpen(true)
@@ -99,7 +100,7 @@ function LocationRow({ create, ...location }: Location & { create?: () => void }
                 </div>
             </div>
         </td>
-        <td class={join(classTdBody, 'text-center')}>{prettyTime(thereNow)}</td>
+        <td class={join(classTdBody, 'text-center')}>{prettyTime(thereNow, hereNow)}</td>
         {thereTimes.map(t => <td class={join(classTdBody, 'text-center')} key={t}>{prettyTime(t)}</td>)}
     </tr>
 }

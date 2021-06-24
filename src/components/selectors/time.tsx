@@ -37,12 +37,10 @@ export function toTimeOption(time: Time) {
     return { time, name }
 }
 
-export function useNow(): Time {
-    return useMemo(() => {
-        const now = DateTime.now()
-        const hour = now.hour + (now.minute <= 30 ? 0 : 1)
-        return { hour: hour % 24 }
-    }, [])
+export function useTimeNow(): Time {
+    const now = DateTime.now()
+    const hour = now.hour + (now.minute <= 30 ? 0 : 1)
+    return { hour: hour % 24 }
 }
 
 export function useFindTimeOption(options: TimeOption[], time: Time = DEFAULT) {

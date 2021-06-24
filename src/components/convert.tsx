@@ -3,11 +3,11 @@ import { DateTime } from 'luxon';
 import { h } from 'preact';
 import useAppState from '../utils/store';
 import { join, prettyTime } from '../utils/utils';
-import TimeSelector, { useNow, useTimeOptionArgs } from './selectors/time';
+import TimeSelector, { useTimeNow, useTimeOptionArgs } from './selectors/time';
 import TimezoneSelector, { useTimezoneOptionArgs } from './selectors/timezone';
 
 export default function TimeConverter() {
-    const now = useNow()
+    const now = useTimeNow()
     const here = useAppState(s => s.timezone)
 
     const zoneArgsIn = useTimezoneOptionArgs("America/New_York")

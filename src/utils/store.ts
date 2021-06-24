@@ -1,3 +1,4 @@
+import { Settings } from 'luxon';
 import create, { GetState, SetState, State } from 'zustand';
 import { devtools } from 'zustand/middleware';
 import { clearStorage, getStorage, setStorage, StorageState } from './storage';
@@ -29,13 +30,18 @@ type AppState = {
 }
 
 const initState = getStorage()
+Settings.defaultZoneName = initState.timezone
 
 /** zustand for state management  */
 const useAppState = zustand<AppState>((get, set) => ({
     ...initState,
 
-    setTimezone: function (_timezone: string | undefined) {
-        const timezone = _timezone ?? getLocalTimezone()
+    /**
+     * @see https://moment.github.io/luxon/docs/manual/zones.html#changing-the-default-zone
+     */
+    setTimezone: function (_timezone: string = 'local') {
+        Settings.defaultZoneName = _timezone
+        const timezone = getLocalTimezone()
         set('Set timezone', viaStorage({ timezone }))
     },
 
