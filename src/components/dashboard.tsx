@@ -13,7 +13,7 @@ import EditTimezone from './menus/timezone-modal';
 import { SelectorStyle } from './selectors/selector';
 import TimeSelector, { TimeOption, useFindTimeOption, useTimeOptions } from './selectors/time';
 
-const classTdHead = "px-6 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+const classTdHead = "px-6 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
 const classTdHeadCenter = join(classTdHead, "text-center")
 const classTdBody = "px-6 py-3.5 whitespace-nowrap text-sm text-gray-900"
 
@@ -52,7 +52,7 @@ function HeaderRow({ openSettings }: { openSettings: () => void }) {
     const setTime = useAppState(s => s.updateTime)
     const updateTime = (index: number) => (time: TimeOption) => setTime(index, time.time)
     return <tr>
-        <td scope="col" class={join(classTdHead, 'row space-x-4')}>
+        <td scope="col" class={join(classTdHead, 'row space-x-4 py-2')}>
             <button title="Settings" onClick={openSettings} class="flex-shrink-0 -ml-1 rounded focus-ring opacity-50 hover:opacity-100">
                 <CogIcon class="w-6 h-6" />
             </button>

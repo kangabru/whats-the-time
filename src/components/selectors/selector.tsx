@@ -47,7 +47,7 @@ export default function Selector<T>({ value, options, onChange, style, classSize
             >
                 <Listbox.Options className={join(
                     "absolute z-10 mt-1 overflow-auto bg-white rounded-md shadow-lg max-h-60 ring-1 ring-gray ring-opacity-5 focus:outline-none",
-                    style === SelectorStyle.DashboardTime ? "w-28" : "w-full",
+                    style === SelectorStyle.DashboardTime ? "w-40" : "w-full",
                 )}>
                     {options.map(option => (
                         <Listbox.Option key={toKey(option)} value={option} disabled={option.disabled}
