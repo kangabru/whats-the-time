@@ -1,9 +1,9 @@
-import { h, JSX } from 'preact';
+import { h } from 'preact';
 import { useMemo, useState } from 'preact/hooks';
 import timezones from '../../data/timezones';
 import { Timezone } from '../../utils/types';
 import { prettyTimezone } from '../../utils/utils';
-import Selector, { SelectorProps, SelectorStyle } from './selector';
+import Selector, { SelectorProps } from './selector';
 
 const DEFAULT: Timezone = 'UTC'
 
@@ -17,11 +17,6 @@ type TimezoneSelectorProps = Omit<SelectorProps<TimezoneOption>, 'toStr' | 'toKe
 
 export default function TimezoneSelector(props: TimezoneSelectorProps) {
     return <Selector<TimezoneOption> {...props} toStr={r => r.name} toKey={r => r.timezone} />
-}
-
-export function useTimezoneSelector(defaultTimezone: Timezone = DEFAULT, style?: SelectorStyle): [JSX.Element, TimezoneOption] {
-    const args = useTimezoneOptionArgs(defaultTimezone)
-    return [<TimezoneSelector {...args} style={style} />, args.value]
 }
 
 type TimezoneOptionArgs = Pick<SelectorProps<TimezoneOption>, 'options' | 'value' | 'onChange'>
