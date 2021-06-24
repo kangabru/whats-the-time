@@ -28,10 +28,13 @@ module.exports = {
                 purple: withDefaultColour(colors.purple),
                 pink: withDefaultColour(colors.pink),
             },
-            maxWidth: {
-                xxs: '12rem'
-            }
         },
+    },
+    variants: {
+        extend: {
+            display: ['group-hover'],
+            backgroundColor: ['group-hover', 'focus'],
+        }
     },
     plugins: [
         require('@tailwindcss/forms'),

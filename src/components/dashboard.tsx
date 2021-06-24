@@ -5,12 +5,13 @@ import { Fragment, h } from 'preact';
 import { useCallback, useState } from 'preact/hooks';
 import { RelativeParent } from '../utils/relative-context';
 import useAppState from '../utils/store';
-import { Location } from '../utils/types';
+import { Location, Time } from '../utils/types';
 import { join, prettyTime, prettyTimezone, useTimeUpdater } from '../utils/utils';
 import EditSettings from './menus/settings-modal';
 import TimezoneMenu from './menus/timezone-menu';
 import EditTimezone from './menus/timezone-modal';
-import { toTimeOption } from './selectors/time';
+import { SelectorStyle } from './selectors/selector';
+import TimeSelector, { useTimeOptionArgs } from './selectors/time';
 
 const classTdHead = "px-6 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
 const classTdHeadCenter = join(classTdHead, "text-center")
@@ -18,7 +19,6 @@ const classTdBody = "px-6 py-3.5 whitespace-nowrap text-sm text-gray-900"
 
 export default function TimeDashboard() {
     const here = useAppState(s => s.timezone)
-    const times = useAppState(s => s.times).map(toTimeOption).map(t => t.name)
     const locations = useAppState(s => s.locations)
 
     const [isOpenSettings, openSettings, closeSettings] = useOpenClose()
@@ -33,16 +33,7 @@ export default function TimeDashboard() {
                     <div className="shadow-md overflow-hidden border-b border-gray-200 sm:rounded-lg">
                         <table className="min-w-full divide-y divide-gray-200">
                             <thead class="bg-gray-50">
-                                <tr>
-                                    <td scope="col" class={join(classTdHead, 'row space-x-4')}>
-                                        <button title="Settings" onClick={openSettings} class="flex-shrink-0 -ml-1 rounded focus-ring opacity-50 hover:opacity-100">
-                                            <CogIcon class="w-6 h-6" />
-                                        </button>
-                                        <span>Notes</span>
-                                    </td>
-                                    <td scope="col" class={classTdHeadCenter}>Now</td>
-                                    {times.map(t => <td scope="col" class={classTdHeadCenter} key={t}>{t}</td>)}
-                                </tr>
+                                <HeaderRow openSettings={openSettings} />
                             </thead>
                             <tbody class="bg-white divide-y divide-gray-200">
                                 <LocationRow key='here' notes="Local" timezone={here} create={openCreate} />
@@ -54,6 +45,27 @@ export default function TimeDashboard() {
             </div>
         </RelativeParent>
     </>
+}
+
+function HeaderRow({ openSettings }: { openSettings: () => void }) {
+    const times = useAppState(s => s.times)
+    return <tr>
+        <td scope="col" class={join(classTdHead, 'row space-x-4')}>
+            <button title="Settings" onClick={openSettings} class="flex-shrink-0 -ml-1 rounded focus-ring opacity-50 hover:opacity-100">
+                <CogIcon class="w-6 h-6" />
+            </button>
+            <span>Notes</span>
+        </td>
+        <td scope="col" class={classTdHeadCenter}>Now</td>
+        {times.map(t => <td scope="col" class={classTdHeadCenter} key={t.hour}>
+            <HeaderTime time={t} />
+        </td>)}
+    </tr>
+}
+
+function HeaderTime({ time }: { time: Time }) {
+    const args = useTimeOptionArgs(time)
+    return <TimeSelector {...args} style={SelectorStyle.DashboardTime} classSize='w-full transform translate-x-3' />
 }
 
 function LocationRow({ create, ...location }: Location & { create?: () => void }) {
