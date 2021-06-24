@@ -1,25 +1,30 @@
 import { DateTime } from 'luxon';
-import { h, JSX } from 'preact';
+import { h } from 'preact';
 import { useMemo, useState } from 'preact/hooks';
 import times from '../../data/times';
 import { Time } from '../../utils/types';
-import Selector from './selector';
+import Selector, { SelectorProps } from './selector';
+
+const DEFAULT: Time = { hour: 13 }
 
 export type TimeOption = {
     name: string,
     time: Time,
 }
 
-export default function useTimeSelector(defaultTime: Time = { hour: 13 }): [JSX.Element, TimeOption] {
+type TimeSelectorProps = Omit<SelectorProps<TimeOption>, 'toStr' | 'toKey'>
+
+export default function TimeSelector(props: TimeSelectorProps) {
+    return <Selector<TimeOption> {...props} toStr={r => r.name} toKey={r => r.name} />
+}
+
+type TimeOptionArgs = Pick<SelectorProps<TimeOption>, 'options' | 'value' | 'onChange'>
+
+export function useTimeOptionArgs(defaultTime: Time = DEFAULT): TimeOptionArgs {
     const options = useMemo(() => times.map(toTimeOption), [])
-    const [time, setTime] = useState<TimeOption>(toTimeOption(defaultTime))
-    return [
-        <Selector<TimeOption>
-            options={options} value={time} onChange={setTime}
-            toStr={r => r.name} toKey={r => r.name}
-        />,
-        time
-    ]
+    const defaultOption = useFindTimeOption(options, defaultTime)
+    const [value, onChange] = useState<TimeOption>(defaultOption)
+    return { value, onChange, options }
 }
 
 export function toTimeOption(time: Time) {
@@ -34,4 +39,11 @@ export function useNow(): Time {
         const hour = now.hour + (now.minute <= 30 ? 0 : 1)
         return { hour: hour % 24 }
     }, [])
+}
+
+export function useFindTimeOption(options: TimeOption[], time: Time = DEFAULT) {
+    return useMemo(() => {
+        const option = options.find(o => o.time.hour === time.hour)
+        return option ?? toTimeOption(time)
+    }, [time])
 }

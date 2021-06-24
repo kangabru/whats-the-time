@@ -1,5 +1,7 @@
 import { Listbox, Transition } from '@headlessui/react';
-import { CheckIcon, GlobeIcon, SelectorIcon } from '@heroicons/react/solid';
+import CheckIcon from '@heroicons/react/solid/CheckIcon';
+import GlobeIcon from '@heroicons/react/solid/GlobeIcon';
+import SelectorIcon from '@heroicons/react/solid/SelectorIcon';
 import { Fragment, h } from 'preact';
 import { join } from '../../utils/utils';
 
@@ -12,21 +14,22 @@ export type SelectorProps<T> = {
     style?: SelectorStyle,
     toStr: (value: T) => string,
     toKey: (value: T) => string,
+    classSize?: string,
 }
 
 export enum SelectorStyle { Raised, Field }
 
-export default function Selector<T>({ value, options, onChange, style, toStr, toKey }: SelectorProps<T>) {
+export default function Selector<T>({ value, options, onChange, style, classSize: classRoot, toStr, toKey }: SelectorProps<T>) {
     return <Listbox value={value} onChange={onChange}>
-        <div className="relative w-full max-w-xxs">
+        <div class={join("relative text-left", classRoot ?? 'w-full sm:w-64')}>
             <Listbox.Button className={join(
-                "relative w-full py-2 pl-3 pr-10 text-left bg-white rounded-lg cursor-default text-sm",
-                "focus:outline-none focus:ring-2 focus:ring-opacity-75 focus:ring-gray",
+                "relative w-full py-2 pl-3 pr-10 text-left bg-white rounded-lg cursor-default",
+                "focus-ring",
                 (style === SelectorStyle.Raised || style === undefined) && "shadow-md focus:border-gray-500",
                 style === SelectorStyle.Field && "border border-gray-300 shadow-sm focus:border-white",
             )}>
-                <span className="block truncate">{toStr(value)}</span>
-                <span className="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
+                <span class="block truncate">{toStr(value)}</span>
+                <span class="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
                     <SelectorIcon
                         className="w-5 h-5 text-gray-400"
                         aria-hidden="true"
@@ -39,31 +42,31 @@ export default function Selector<T>({ value, options, onChange, style, toStr, to
                 leaveFrom="opacity-100"
                 leaveTo="opacity-0"
             >
-                <Listbox.Options className="absolute z-10 w-full mt-1 overflow-auto bg-white rounded-md shadow-lg max-h-60 ring-1 ring-gray ring-opacity-5 focus:outline-none text-sm">
+                <Listbox.Options className="absolute z-10 w-full mt-1 overflow-auto bg-white rounded-md shadow-lg max-h-60 ring-1 ring-gray ring-opacity-5 focus:outline-none">
                     {options.map(option => (
                         <Listbox.Option key={toKey(option)} value={option} disabled={option.disabled}
                             className={({ active, disabled }) => join(
-                                'cursor-default select-none relative py-2 pl-10 pr-4',
+                                'cursor-default select-none relative pl-10 pr-4',
                                 active ? 'text-gray-900 bg-gray-100' : 'text-gray-900',
-                                disabled && 'bg-gray-200 sticky top-0 z-10',
+                                disabled ? 'bg-indigo-100 text-white sticky top-0 z-10 py-1' : 'py-2',
                             )}>
                             {/* @ts-ignore */}
                             {({ selected, disabled }) => (
                                 <>
-                                    <span className={join(
-                                        'block truncate',
-                                        selected && 'font-medium',
+                                    <span class={join(
+                                        'block truncate font-normal',
+                                        selected && 'font-semibold',
                                         disabled && 'font-semibold uppercase',
                                     )}>
                                         {toStr(option)}
                                     </span>
                                     {selected
-                                        ? <span className='absolute inset-y-0 left-0 flex items-center pl-3'>
-                                            <CheckIcon className="w-5 h-5" aria-hidden="true" />
+                                        ? <span class='absolute inset-y-0 left-0 flex items-center pl-3'>
+                                            <CheckIcon class="w-5 h-5" aria-hidden="true" />
                                         </span>
                                         : disabled
-                                            ? <span className='absolute inset-y-0 left-0 flex items-center pl-3'>
-                                                <GlobeIcon className="w-5 h-5" aria-hidden="true" />
+                                            ? <span class='absolute inset-y-0 left-0 flex items-center pl-3'>
+                                                <GlobeIcon class="w-4 h-4" aria-hidden="true" />
                                             </span>
                                             : null}
                                 </>

@@ -1,6 +1,7 @@
-import { CogIcon, PlusIcon } from '@heroicons/react/solid';
+import CogIcon from '@heroicons/react/solid/CogIcon';
+import PlusIcon from '@heroicons/react/solid/PlusIcon';
 import { DateTime } from 'luxon';
-import { h } from 'preact';
+import { Fragment, h } from 'preact';
 import { useCallback, useState } from 'preact/hooks';
 import { RelativeParent } from '../utils/relative-context';
 import useAppState from '../utils/store';
@@ -23,18 +24,18 @@ export default function TimeDashboard() {
     const [isOpenSettings, openSettings, closeSettings] = useOpenClose()
     const [isOpenCreate, openCreate, closeCreate] = useOpenClose()
 
-    return <RelativeParent class="flex flex-col">
+    return <>
         <EditSettings isOpen={isOpenSettings} close={closeSettings} />
         <EditTimezone isOpen={isOpenCreate} close={closeCreate} />
-        <div class="w-full sm:w-auto overflow-x-scroll sm:overflow-x-hidden px-2 py-5">
-            <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
-                <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
-                    <div class="shadow-md overflow-hidden border-b border-gray-200 rounded-lg">
-                        <table class="min-w-full divide-y divide-gray-200">
+        <RelativeParent class="flex flex-col max-w-full">
+            <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+                <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
+                    <div className="shadow-md overflow-hidden border-b border-gray-200 sm:rounded-lg">
+                        <table className="min-w-full divide-y divide-gray-200">
                             <thead class="bg-gray-50">
                                 <tr>
                                     <td scope="col" class={join(classTdHead, 'row space-x-4')}>
-                                        <button title="Settings" onClick={openSettings} class="flex-shrink-0 -ml-1 rounded focus:outline-none focus:ring-2 focus:ring-gray focus:ring-opacity-75 opacity-50 hover:opacity-100">
+                                        <button title="Settings" onClick={openSettings} class="flex-shrink-0 -ml-1 rounded focus-ring opacity-50 hover:opacity-100">
                                             <CogIcon class="w-6 h-6" />
                                         </button>
                                         <span>Notes</span>
@@ -51,8 +52,8 @@ export default function TimeDashboard() {
                     </div>
                 </div>
             </div>
-        </div>
-    </RelativeParent>
+        </RelativeParent>
+    </>
 }
 
 function LocationRow({ create, ...location }: Location & { create?: () => void }) {
@@ -71,7 +72,8 @@ function LocationRow({ create, ...location }: Location & { create?: () => void }
         <td className={classTdBody}>
             <div className="flex items-center -ml-1">
                 {create
-                    ? <button onClick={create} class="flex-shrink-0 rounded focus:outline-none focus:ring-2 focus:ring-gray focus:ring-opacity-75 opacity-50 hover:opacity-100">
+                    ? <button title="Add timezone" onClick={create}
+                        class="flex-shrink-0 rounded focus-ring opacity-50 hover:opacity-100">
                         <PlusIcon class="w-6 h-6" />
                     </button>
                     : <TimezoneMenu location={location} edit={edit} />}

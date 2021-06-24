@@ -10,4 +10,8 @@
     .col {
         @apply flex flex-col items-center;
     }
+
+    .focus-ring {
+        @apply focus:outline-none focus:ring-2 focus:ring-gray focus:ring-opacity-75;
+    }
 }
