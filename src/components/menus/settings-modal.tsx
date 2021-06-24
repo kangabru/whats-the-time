@@ -22,7 +22,7 @@ export default function EditSettings({ isOpen, close: closeModal }: { isOpen: bo
         <hr class="border-t" />
 
         <button type="submit" onClick={onClick}
-            className="w-full col text-center font-semibold py-2 px-4 border border-transparent shadow-sm rounded-md text-white bg-red-400 hover:bg-red-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500">
+            className="w-full col text-center font-semibold py-2 px-4 border border-transparent shadow-sm rounded-md text-white bg-red-400 hover:bg-red-500 focus-ring">
             <span>{confirming ? "Are you sure?" : "Reset"}</span>
             {confirming && <span class="text-sm opacity-80">This will delete all app data</span>}
         </button>
@@ -65,7 +65,7 @@ function DefaultLocationSelector() {
             />
 
             <button title="Reset timezone" onClick={resetTimezone}
-                class="block p-2 border border-gray-300 rounded-lg shadow-sm text-sm focus:outline-none focus:ring-2 focus:ring-opacity-75 focus:ring-gray focus:border-white">
+                class="block p-2 border border-gray-300 rounded-lg shadow-sm text-sm focus-ring focus:border-white">
                 <LocationMarkerIcon class="w-6 h-6" />
             </button>
         </div>

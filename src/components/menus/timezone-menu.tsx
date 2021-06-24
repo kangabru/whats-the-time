@@ -15,7 +15,7 @@ export default function TimezoneMenu({ location, edit }: { location: Location, e
     const removeLocation = useAppState(s => s.removeLocation)
     const [ref, top] = useMenuPosition()
     return <Menu as="div" className="inline-block text-left">
-        <Menu.Button ref={ref} title="Edit" className="flex-shrink-0 rounded focus:outline-none focus:ring-2 focus:ring-gray focus:ring-opacity-75 opacity-50 hover:opacity-100">
+        <Menu.Button ref={ref} title="Edit" className="flex-shrink-0 rounded focus-ring opacity-50 hover:opacity-100">
             <MenuIcon class="h-6 w-6" />
         </Menu.Button>
         <Transition
@@ -56,7 +56,7 @@ function MenuButton({ text, icon, onClick, class: cls, classActive }: MenuButton
         {/* @ts-ignore */}
         {({ active }) => (
             <button onClick={onClick} class={join(
-                cls, 'group flex rounded-md items-center w-full px-2 py-2 text-sm',
+                cls, 'group flex rounded-md items-center w-full px-2 py-2 text-sm focus-ring',
                 active && (classActive ?? 'bg-gray-100 underline'),
             )}>
                 {icon({ className: "w-5 h-5 mr-2", ariaHidden: true })}

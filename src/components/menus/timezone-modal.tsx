@@ -37,7 +37,7 @@ export default function EditTimezone({ isOpen, close, location }: { isOpen: bool
                 <input type="text" value={notes} onInput={e => setNotes(e.currentTarget.value)} placeholder="Offshore Team"
                     class={join(
                         "block w-full border-gray-300 rounded-lg shadow-sm text-sm",
-                        "focus:outline-none focus:ring-2 focus:ring-opacity-75 focus:ring-gray focus:border-white",
+                        "focus-ring focus:border-white",
                     )} />
             </div>
 
@@ -50,7 +50,7 @@ export default function EditTimezone({ isOpen, close, location }: { isOpen: bool
         <div class="flex justify-end">
             <button type="submit" onClick={onClick}
                 className={join(
-                    "font-semibold py-2 px-4 border border-transparent shadow-sm text-sm rounded-md text-white bg-indigo-400 hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500",
+                    "font-semibold py-2 px-4 border border-transparent shadow-sm text-sm rounded-md text-white bg-indigo-400 hover:bg-indigo-500 focus-ring",
                     !isValid && "opacity-50 cursor-not-allowed",
                 )}>
                 Save

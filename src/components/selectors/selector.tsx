@@ -24,7 +24,7 @@ export default function Selector<T>({ value, options, onChange, style, classSize
         <div class={join("relative text-left", classRoot ?? 'w-full sm:w-64')}>
             <Listbox.Button className={join(
                 "relative w-full py-2 pl-3 pr-10 text-left bg-white rounded-lg cursor-default",
-                "focus:outline-none focus:ring-2 focus:ring-opacity-75 focus:ring-gray",
+                "focus-ring",
                 (style === SelectorStyle.Raised || style === undefined) && "shadow-md focus:border-gray-500",
                 style === SelectorStyle.Field && "border border-gray-300 shadow-sm focus:border-white",
             )}>

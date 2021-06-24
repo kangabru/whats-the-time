@@ -35,7 +35,7 @@ export default function TimeDashboard() {
                             <thead class="bg-gray-50">
                                 <tr>
                                     <td scope="col" class={join(classTdHead, 'row space-x-4')}>
-                                        <button title="Settings" onClick={openSettings} class="flex-shrink-0 -ml-1 rounded focus:outline-none focus:ring-2 focus:ring-gray focus:ring-opacity-75 opacity-50 hover:opacity-100">
+                                        <button title="Settings" onClick={openSettings} class="flex-shrink-0 -ml-1 rounded focus-ring opacity-50 hover:opacity-100">
                                             <CogIcon class="w-6 h-6" />
                                         </button>
                                         <span>Notes</span>
@@ -72,7 +72,7 @@ function LocationRow({ create, ...location }: Location & { create?: () => void }
         <td className={classTdBody}>
             <div className="flex items-center -ml-1">
                 {create
-                    ? <button onClick={create} class="flex-shrink-0 rounded focus:outline-none focus:ring-2 focus:ring-gray focus:ring-opacity-75 opacity-50 hover:opacity-100">
+                    ? <button onClick={create} class="flex-shrink-0 rounded focus-ring opacity-50 hover:opacity-100">
                         <PlusIcon class="w-6 h-6" />
                     </button>
                     : <TimezoneMenu location={location} edit={edit} />}
