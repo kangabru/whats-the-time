@@ -24,7 +24,7 @@ export default function TimeConverter() {
     // e.g. Time in New York when 10 pm in Londong
     return <div class="col px-5 m-5">
 
-        <h2 class={join(classText, 'text-center text-4xl font-extrabold mb-10')}>What's the time?</h2>
+        <h1 class={join(classText, 'text-center text-4xl font-extrabold mb-10')}>What's the time?</h1>
 
         <div class={classSelect}>
             <div class={classTextTiny}>in</div>

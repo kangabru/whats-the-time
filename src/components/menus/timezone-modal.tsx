@@ -28,7 +28,7 @@ export default function EditTimezone({ isOpen, close, location }: { isOpen: bool
 
     return <Modal isOpen={isOpen} close={close} classSize='w-full max-w-sm'>
         <Dialog.Title as="h3" className="text-lg font-medium leading-6 text-gray-900">
-            {!!location ? "Edit" : "Create"} timezone
+            {!!location ? "Edit" : "Add"} timezone
         </Dialog.Title>
 
         <div class="bg-white space-y-2">

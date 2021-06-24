@@ -64,7 +64,7 @@ function DefaultLocationSelector() {
                 classSize='w-full'
             />
 
-            <button title="Reset timezone" onClick={resetTimezone}
+            <button title="Local timezone" onClick={resetTimezone}
                 class="block p-2 border border-gray-300 rounded-lg shadow-sm text-sm focus-ring focus:border-white">
                 <LocationMarkerIcon class="w-6 h-6" />
             </button>

@@ -55,7 +55,7 @@ function MenuButton({ text, icon, onClick, class: cls, classActive }: MenuButton
     return <Menu.Item>
         {/* @ts-ignore */}
         {({ active }) => (
-            <button onClick={onClick} class={join(
+            <button title={text} onClick={onClick} class={join(
                 cls, 'group flex rounded-md items-center w-full px-2 py-2 text-sm focus-ring',
                 active && (classActive ?? 'bg-gray-100 underline'),
             )}>
