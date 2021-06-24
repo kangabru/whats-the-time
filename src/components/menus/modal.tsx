@@ -5,6 +5,10 @@ import { join } from '../../utils/utils';
 
 type ModalProps = Children & { isOpen: boolean, close: () => void, classSize?: string }
 
+/**
+ * Renders a generic modal used to show various screens in the app.
+ * @see https://headlessui.dev/react/dialog
+ */
 export default function Modal({ isOpen, close, children, classSize }: ModalProps) {
     return <Transition appear show={isOpen} as={Fragment}>
         <Dialog

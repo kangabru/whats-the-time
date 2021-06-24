@@ -6,28 +6,31 @@ import { join, prettyTime } from '../utils/utils';
 import TimeSelector, { useTimeNow, useTimeOptionArgs } from './selectors/time';
 import TimezoneSelector, { useTimezoneOptionArgs } from './selectors/timezone';
 
+const classText = "w-full px-2 py-1 text-left"
+const classTextTiny = "absolute bottom-full left-4 text-sm"
+const classGroup = "px-2 py-1 text-base relative"
+const classSelect = "w-full"
+
+/** Renders the 'convert time' page section. */
 export default function TimeConverter() {
     const now = useTimeNow()
-    const here = useAppState(s => s.timezone)
 
+    // Values for: What's the time in <New York> when it's <10am> in <London>?
     const zoneArgsIn = useTimezoneOptionArgs("America/New_York")
-    const zoneArgsWhen = useTimezoneOptionArgs(here)
+    const zoneArgsWhen = useTimezoneOptionArgs(useAppState(s => s.timezone)) // default to local
     const timeArgsWhen = useTimeOptionArgs(now)
 
-    const _timeWhen = DateTime.fromObject({ zone: zoneArgsWhen.value.timezone, hour: timeArgsWhen.value.time.hour, minute: 0, second: 0 })
-    const _timeIn = _timeWhen.setZone(zoneArgsIn.value.timezone)
+    // Prepare the time in the one timezone then convert to the other zone
+    const timeWhen = DateTime.fromObject({ zone: zoneArgsWhen.value.timezone, hour: timeArgsWhen.value.time.hour, minute: 0, second: 0 })
+    const timeIn = timeWhen.setZone(zoneArgsIn.value.timezone)
 
-    const classText = "w-full px-2 py-1 text-left"
-    const classTextTiny = "absolute bottom-full left-4 text-sm"
-    const classGroup = "px-2 py-1 text-base relative"
-    const classSelect = "w-full"
-
-    // e.g. Time in New York when 10 pm in Londong
     return <div class="col m-5 ">
         <div class="max-w-sm">
 
+            {/* What's the time? */}
             <h1 class={join(classText, 'text-center text-4xl font-extrabold mb-10')}>What's the time?</h1>
 
+            {/* in New York */}
             <div class={classGroup}>
                 <div class={classTextTiny}>in</div>
                 <a title="Timezone info" target="_blank"
@@ -38,6 +41,7 @@ export default function TimeConverter() {
                 <TimezoneSelector {...zoneArgsIn} classSize={classSelect} />
             </div>
 
+            {/* when it's 10am in London */}
             <div class="space-y-6 mt-14">
                 <div class={classGroup}>
                     <div class={classTextTiny}>when it's</div>
@@ -50,8 +54,9 @@ export default function TimeConverter() {
                 </div>
             </div>
 
+            {/* 5pm */}
             <div colSpan={2} class={join(classText, 'w-full mt-6 text-4xl text-center font-extrabold')}>
-                <span>{prettyTime(_timeIn, _timeWhen)}</span>
+                <span>{prettyTime(timeIn, timeWhen)}</span>
             </div>
 
         </div>

@@ -15,30 +15,64 @@ export function zustand<T extends State>(creator: (get: GetState<T>, set: (name:
 }
 
 type AppState = {
-    timezone: string, // Time to compare all other times to in the dashboard
-    setTimezone(_: string | undefined): void,
+    /**
+     * The 'local' time used to compare all other times against in the dashboard.
+     * `DateTime.now()` defaults to this value.
+     */
+    timezone: string,
 
+    /**
+     * Updated the 'local' timezone.
+     * @param timezone - A timezone string or undefined to reset it.
+     */
+    setTimezone(timezone?: string): void,
+
+    /** A list of times shown in the dashboard. */
     times: Time[],
-    updateTime(index: number, _: Time): void,
 
+    /**
+     * Updates a specific dashboard time.
+     * @param index - The index of the times list to update.
+     * @param time - The time to set the value to.
+     */
+    updateTime(index: number, time: Time): void,
+
+    /** A list of timezones/locations shown in the dashboard. */
     locations: Location[],
-    moveLocation(_: Location, up: boolean): void,
-    setLocation(_: Location, lastTimezone?: Location): void,
-    removeLocation(_: Location): void,
 
+    /**
+     * Moves the position of a timezone in the dashboard up or down.
+     * @param location - The location to used. The internal timezone code is used to find the row.
+     * @param up - `true` to move the row up, `false` to move it down.
+     */
+    moveLocation(location: Location, up: boolean): void,
+
+    /**
+     * Adds or updates a timezone row in the dashboard.
+     * @param location - The location info to save.
+     * @param lastTimezone - The record to update or omit this to add a new record. The internal timezone code is used to find the row.
+     */
+    setLocation(location: Location, lastTimezone?: Location): void,
+
+    /**
+     * Removes a timezone row from the dashboard.
+     * @param location - The location to remove. The internal timezone code is used to find the row.
+     */
+    removeLocation(location: Location): void,
+
+    /** Reset all data in the app to the default values. */
     reset: () => void,
 }
 
+// Get saved data or init default data and prepare luxon
 const initState = getStorage()
 Settings.defaultZoneName = initState.timezone
 
 /** zustand for state management  */
 const useAppState = zustand<AppState>((get, set) => ({
-    ...initState,
+    ...initState, // Init values from local storage
 
-    /**
-     * @see https://moment.github.io/luxon/docs/manual/zones.html#changing-the-default-zone
-     */
+    /** @see https://moment.github.io/luxon/docs/manual/zones.html#changing-the-default-zone */
     setTimezone: function (_timezone: string = 'local') {
         Settings.defaultZoneName = _timezone
         const timezone = getLocalTimezone()
@@ -65,11 +99,13 @@ const useAppState = zustand<AppState>((get, set) => ({
             set('Edit location', viaStorage({ locations }))
         }
     },
+
     removeLocation: function (location: Location) {
         let { locations } = get()
         locations = locations.filter(t => t.timezone !== location.timezone)
         set('Delete location', viaStorage({ locations }))
     },
+
     moveLocation: function (location: Location, up: boolean) {
         const down = !up
         let { locations } = get()
@@ -94,7 +130,10 @@ const useAppState = zustand<AppState>((get, set) => ({
     },
 } as AppState))
 
-/** Saves the state to local storage then returns the saved state. Using this function ensure the data being saved it always correct. */
+/**
+ * Saves the state to local storage then returns the saved state.
+ * Using this function ensures that the data being saved it synced with the storage data.
+ */
 function viaStorage(state: Partial<StorageState>): Partial<StorageState> {
     const localState = getStorage()
     const newState = setStorage({ ...localState, ...state })

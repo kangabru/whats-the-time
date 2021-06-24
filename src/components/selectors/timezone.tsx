@@ -15,12 +15,17 @@ export type TimezoneOption = {
 
 type TimezoneSelectorProps = Omit<SelectorProps<TimezoneOption>, 'toStr' | 'toKey'>
 
+/** A listbox that shows all timezone options. */
 export default function TimezoneSelector(props: TimezoneSelectorProps) {
     return <Selector<TimezoneOption> {...props} toStr={r => r.name} toKey={r => r.timezone} />
 }
 
 type TimezoneOptionArgs = Pick<SelectorProps<TimezoneOption>, 'options' | 'value' | 'onChange'>
 
+/**
+ * Prepares some {@link TimezoneSelector} arguments.
+ * @param defaultTimezone - The initial timezone value to set the listbox value as.
+ */
 export function useTimezoneOptionArgs(defaultTimezone: Timezone = DEFAULT): TimezoneOptionArgs {
     const options = useTimezoneOptions()
     const defaultOption = useFindTimezoneOption(options, defaultTimezone)
@@ -28,6 +33,7 @@ export function useTimezoneOptionArgs(defaultTimezone: Timezone = DEFAULT): Time
     return { value, onChange, options }
 }
 
+/** Prepares and caches the timezone options with human readable names. */
 export function useTimezoneOptions(): TimezoneOption[] {
     return useMemo(() => Object.entries(timezones)
         .map(([groupName, groupZones]) => groupToOptions(groupName, groupZones))
@@ -44,6 +50,7 @@ function zoneToOption(timezone: Timezone): TimezoneOption {
     return { timezone, name: prettyTimezone(timezone) }
 }
 
+/** The listbox matches options by reference so this hook helps to find that value and cache the reference. */
 export function useFindTimezoneOption(options: TimezoneOption[], timezone: Timezone = "UTC") {
     return useMemo(() => {
         const option = options.find(o => o.timezone === timezone)

@@ -10,6 +10,10 @@ export type StorageState = {
     locations: Location[],
 }
 
+/**
+ * Returns the {@link StorageState} object from local storage.
+ * If no storage is found then the {@link defaultState} object is saved and returned.
+ */
 export function getStorage(): StorageState {
     const version = localStorage.getItem(KEY_DASHBOARD)
     return version
@@ -17,11 +21,13 @@ export function getStorage(): StorageState {
         : setStorage(defaultState)
 }
 
+/** Save a {@link StorageState} object to local storage. */
 export function setStorage(state: StorageState): StorageState {
     localStorage.setItem(KEY_DASHBOARD, JSON.stringify(state))
     return getStorage()
 }
 
+/** Clears all local storage. Use to reset the app. */
 export function clearStorage() {
     localStorage.clear()
 }

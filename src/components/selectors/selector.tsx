@@ -19,9 +19,13 @@ export type SelectorProps<T> = {
 
 export enum SelectorStyle { Raised, Field, DashboardTime }
 
+/** A generic listbox used to show a list of item.
+ * @see https://headlessui.dev/react/listbox
+ */
 export default function Selector<T>({ value, options, onChange, style, classSize, toStr, toKey }: SelectorProps<T>) {
     return <Listbox value={value} onChange={onChange}>
         <div class={join("relative text-left", classSize ?? 'w-full sm:w-64')}>
+
             <Listbox.Button className={join(
                 "group relative w-full py-2 pl-3 pr-10 rounded-lg cursor-default focus-ring",
                 (style === SelectorStyle.Raised || style === undefined) && "shadow-md focus:border-gray-500",
@@ -39,6 +43,7 @@ export default function Selector<T>({ value, options, onChange, style, classSize
                     />
                 </span>
             </Listbox.Button>
+
             <Transition
                 as={Fragment}
                 leave="transition ease-in duration-100"
@@ -81,6 +86,7 @@ export default function Selector<T>({ value, options, onChange, style, classSize
                     ))}
                 </Listbox.Options>
             </Transition>
+
         </div>
     </Listbox>
 }

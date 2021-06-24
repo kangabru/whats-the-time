@@ -10,6 +10,10 @@ import useAppState from '../../utils/store'
 import { Location } from '../../utils/types'
 import { join } from '../../utils/utils'
 
+/**
+ * Renders the popup menu with actions like Edit, Move Up, Move Down, Delete.
+ * @see https://headlessui.dev/react/menu
+ */
 export default function TimezoneMenu({ location, edit }: { location: Location, edit: () => void }) {
     const moveLocation = useAppState(s => s.moveLocation)
     const removeLocation = useAppState(s => s.removeLocation)
@@ -66,6 +70,11 @@ function MenuButton({ text, icon, onClick, class: cls, classActive }: MenuButton
     </Menu.Item>
 }
 
+/**
+ * This modal must render outside of the table bounds but to do that we need to make use
+ * of the relative root and position the element via JS instead of CSS.
+ * @returns [The ref to use on the button to anchor the menu to, the top offset to position the menu to.]
+ */
 function useMenuPosition(): [Ref<HTMLElement>, number] {
     const [ref, { y, height }] = useRelativeBounds()
     const top = y + height / 2

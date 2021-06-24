@@ -9,6 +9,10 @@ import { SelectorStyle } from '../selectors/selector';
 import TimezoneSelector, { useTimezoneOptionArgs } from '../selectors/timezone';
 import Modal from './modal';
 
+/**
+ * Renders the create/edit timezone modal.
+ * @see https://headlessui.dev/react/modal
+ */
 export default function EditTimezone({ isOpen, close, location }: { isOpen: boolean, close: () => void, location?: Location }) {
     const setLocation = useAppState(s => s.setLocation)
 
@@ -27,10 +31,12 @@ export default function EditTimezone({ isOpen, close, location }: { isOpen: bool
     }
 
     return <Modal isOpen={isOpen} close={close} classSize='w-full max-w-sm'>
+
         <Dialog.Title as="h3" className="text-lg font-medium leading-6 text-gray-900">
             {!!location ? "Edit" : "Add"} timezone
         </Dialog.Title>
 
+        {/* Notes and timezone fields */}
         <div class="bg-white space-y-2">
             <div class="space-y-1">
                 <label htmlFor="names" class="block text-sm font-medium text-gray-700">Notes</label>
@@ -47,6 +53,7 @@ export default function EditTimezone({ isOpen, close, location }: { isOpen: bool
             </div>
         </div>
 
+        {/* Save */}
         <div class="flex justify-end">
             <button type="submit" onClick={onClick}
                 className={join(

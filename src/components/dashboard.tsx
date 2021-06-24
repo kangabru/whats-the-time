@@ -17,6 +17,7 @@ const classTdHead = "px-6 py-1 text-left text-xs font-medium text-gray-500 upper
 const classTdHeadCenter = join(classTdHead, "text-center")
 const classTdBody = "px-6 py-3.5 whitespace-nowrap text-sm text-gray-900"
 
+/** Renders the 'dashboard' page section. */
 export default function TimeDashboard() {
     const here = useAppState(s => s.timezone)
     const locations = useAppState(s => s.locations)
@@ -25,8 +26,14 @@ export default function TimeDashboard() {
     const [isOpenCreate, openCreate, closeCreate] = useOpenClose()
 
     return <>
+
+        {/* Settings and create/edit modals */}
         <EditSettings isOpen={isOpenSettings} close={closeSettings} />
         <EditTimezone isOpen={isOpenCreate} close={closeCreate} />
+
+        {/* The table based of the Tailwind UI template. */}
+        {/** {@link RelativeParent} is used here to allow the row menu popup to render outside of the table bounds. */}
+        {/* The div nesting is used to allow the table to render with rounded edges, a shadow, and scroll nicely on small screens. */}
         <RelativeParent class="flex flex-col max-w-full">
             <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
                 <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
@@ -52,12 +59,16 @@ function HeaderRow({ openSettings }: { openSettings: () => void }) {
     const setTime = useAppState(s => s.updateTime)
     const updateTime = (index: number) => (time: TimeOption) => setTime(index, time.time)
     return <tr>
+
+        {/* Settings icon and title */}
         <td scope="col" class={join(classTdHead, 'row space-x-4 py-2')}>
             <button title="Settings" onClick={openSettings} class="flex-shrink-0 -ml-1 rounded focus-ring opacity-50 hover:opacity-100">
                 <CogIcon class="w-6 h-6" />
             </button>
             <span>Notes</span>
         </td>
+
+        {/* 'Now' and other times */}
         <td scope="col" class={classTdHeadCenter}>Now</td>
         {times.map((t, i) => <td scope="col" class={classTdHeadCenter} key={t.hour}>
             <HeaderTime time={t} onChange={updateTime(i)} />
@@ -65,6 +76,7 @@ function HeaderRow({ openSettings }: { openSettings: () => void }) {
     </tr>
 }
 
+/** Renders a time as text but make the selector appear on hover. */
 function HeaderTime({ time, onChange }: { time: Time, onChange: (_: TimeOption) => void }) {
     const options = useTimeOptions()
     const option = useFindTimeOption(options, time)
@@ -85,7 +97,11 @@ function LocationRow({ create, ...location }: Location & { create?: () => void }
     const cancel = () => setCreateIsOpen(false)
 
     return <tr class="bg-white rounded-lg overflow-hidden my-3">
+
+        {/* The popup menu */}
         <EditTimezone isOpen={editing} close={cancel} location={location} />
+
+        {/* Hamburger or '+' icon */}
         <td className={classTdBody}>
             <div className="flex items-center -ml-1">
                 {create
@@ -100,6 +116,8 @@ function LocationRow({ create, ...location }: Location & { create?: () => void }
                 </div>
             </div>
         </td>
+
+        {/* 'Now' and other times */}
         <td class={join(classTdBody, 'text-center')}>{prettyTime(thereNow, hereNow)}</td>
         {thereTimes.map(t => <td class={join(classTdBody, 'text-center')} key={t}>{prettyTime(t)}</td>)}
     </tr>
