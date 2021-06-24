@@ -24,13 +24,13 @@ export default function EditTimezone({ isOpen, close, location }: { isOpen: bool
         close()
     }
 
-    return <Modal isOpen={isOpen} close={close}>
+    return <Modal isOpen={isOpen} close={close} classSize='w-full max-w-sm'>
         <Dialog.Title as="h3" className="text-lg font-medium leading-6 text-gray-900">
             {!!location ? "Edit" : "Create"} timezone
         </Dialog.Title>
 
-        <div class="row justify-evenly bg-white space-x-3">
-            <div class="w-full max-w-xxs space-y-1">
+        <div class="bg-white space-y-2">
+            <div class="space-y-1">
                 <label htmlFor="names" class="block text-sm font-medium text-gray-700">Notes</label>
                 <input type="text" value={notes} onInput={e => setNotes(e.currentTarget.value)} placeholder="Offshore Team"
                     class={join(
@@ -39,7 +39,7 @@ export default function EditTimezone({ isOpen, close, location }: { isOpen: bool
                     )} />
             </div>
 
-            <div class="w-full max-w-xxs space-y-1">
+            <div class="space-y-1">
                 <div class="block text-sm font-medium text-gray-700">Timezone</div>
                 {selectorTimezone}
             </div>
