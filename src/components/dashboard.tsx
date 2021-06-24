@@ -1,6 +1,6 @@
 import { CogIcon, PlusIcon } from '@heroicons/react/solid';
 import { DateTime } from 'luxon';
-import { h } from 'preact';
+import { Fragment, h } from 'preact';
 import { useCallback, useState } from 'preact/hooks';
 import { RelativeParent } from '../utils/relative-context';
 import useAppState from '../utils/store';
@@ -23,14 +23,14 @@ export default function TimeDashboard() {
     const [isOpenSettings, openSettings, closeSettings] = useOpenClose()
     const [isOpenCreate, openCreate, closeCreate] = useOpenClose()
 
-    return <RelativeParent class="flex flex-col">
+    return <>
         <EditSettings isOpen={isOpenSettings} close={closeSettings} />
         <EditTimezone isOpen={isOpenCreate} close={closeCreate} />
-        <div class="w-full sm:w-auto overflow-x-scroll sm:overflow-x-hidden px-2 py-5">
-            <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
-                <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
-                    <div class="shadow-md overflow-hidden border-b border-gray-200 rounded-lg">
-                        <table class="min-w-full divide-y divide-gray-200">
+        <RelativeParent class="flex flex-col">
+            <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+                <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
+                    <div className="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
+                        <table className="min-w-full divide-y divide-gray-200">
                             <thead class="bg-gray-50">
                                 <tr>
                                     <td scope="col" class={join(classTdHead, 'row space-x-4')}>
@@ -51,8 +51,8 @@ export default function TimeDashboard() {
                     </div>
                 </div>
             </div>
-        </div>
-    </RelativeParent>
+        </RelativeParent>
+    </>
 }
 
 function LocationRow({ create, ...location }: Location & { create?: () => void }) {

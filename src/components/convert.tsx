@@ -21,7 +21,7 @@ export default function TimeConverter() {
     const classSelect = "px-2 py-1 text-base relative"
 
     // e.g. Time in New York when 10 pm in Londong
-    return <div class="col">
+    return <div class="col px-5 m-5">
 
         <h2 class={join(classText, 'text-center text-4xl font-extrabold mb-10')}>What's the time?</h2>
 
