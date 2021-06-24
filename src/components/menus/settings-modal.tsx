@@ -1,5 +1,5 @@
 import { Dialog } from '@headlessui/react';
-import { LocationMarkerIcon } from '@heroicons/react/solid';
+import LocationMarkerIcon from '@heroicons/react/solid/LocationMarkerIcon';
 import { h } from 'preact';
 import { useState } from 'preact/hooks';
 import useAppState from '../../utils/store';

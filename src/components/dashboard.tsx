@@ -1,4 +1,5 @@
-import { CogIcon, PlusIcon } from '@heroicons/react/solid';
+import CogIcon from '@heroicons/react/solid/CogIcon';
+import PlusIcon from '@heroicons/react/solid/PlusIcon';
 import { DateTime } from 'luxon';
 import { Fragment, h } from 'preact';
 import { useCallback, useState } from 'preact/hooks';

@@ -1,5 +1,7 @@
 import { Listbox, Transition } from '@headlessui/react';
-import { CheckIcon, GlobeIcon, SelectorIcon } from '@heroicons/react/solid';
+import CheckIcon from '@heroicons/react/solid/CheckIcon';
+import GlobeIcon from '@heroicons/react/solid/GlobeIcon';
+import SelectorIcon from '@heroicons/react/solid/SelectorIcon';
 import { Fragment, h } from 'preact';
 import { join } from '../../utils/utils';
 
