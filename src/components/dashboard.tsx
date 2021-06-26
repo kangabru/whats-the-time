@@ -111,7 +111,7 @@ function LocationRow({ create, ...location }: Location & { create?: () => void }
                     </button>
                     : <TimezoneMenu location={location} edit={edit} />}
                 <div class="ml-4">
-                    <div class="text-sm font-medium text-gray-900">{location.notes}</div>
+                    <div class="text-sm font-medium text-gray-900 max-w-xs truncate">{location.notes}</div>
                     <div class="text-sm text-gray-500">{prettyTimezone(location.timezone)}</div>
                 </div>
             </div>

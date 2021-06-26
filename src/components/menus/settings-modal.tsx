@@ -7,8 +7,8 @@ import { SelectorStyle } from '../selectors/selector';
 import TimezoneSelector, { useFindTimezoneOption, useTimezoneOptions } from '../selectors/timezone';
 import Modal from './modal';
 
-export default function EditSettings({ isOpen, close: closeModal }: { isOpen: boolean, close: () => void }) {
-    const [confirming, onClick, onClose] = useConfirm(closeModal)
+export default function EditSettings({ isOpen, close }: { isOpen: boolean, close: () => void }) {
+    const [confirming, onClick, onClose] = useConfirm(close)
 
     return <Modal isOpen={isOpen} close={onClose} classSize="w-full max-w-sm">
         <Dialog.Title as="h3" className="text-lg font-medium leading-6 text-gray-900">
