@@ -1,6 +1,6 @@
 <div align="center">
 
-# 🌍 What's the time?
+# 🕓 What's the time?
 
 A timezone converter and dashboard to help you communicate with contacts around the world.
 
