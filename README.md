@@ -4,9 +4,12 @@
 
 A timezone converter and dashboard to help you communicate with contacts around the world.
 
+![Screenshot](https://raw.githubusercontent.com/kangabru/whats-the-time/assets/assets/screenshot.jpg)
+
 👉 [View the site here](https://whats-the-time.netlify.app/) 👈
-  
+
 [![Netlify Status](https://api.netlify.com/api/v1/badges/1a0c4ed5-aeea-4379-ad20-ea374aa1f071/deploy-status)](https://app.netlify.com/sites/whats-the-time/deploys)
+
 </div>
 
 ## Features
