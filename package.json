@@ -7,9 +7,10 @@
         "preinstall": "npx npm-force-resolutions",
         "start": "npm run dev",
         "dev": "npm run typecheck && npm run parcel:watch",
-        "build": "npm run typecheck && npm run parcel:build",
+        "build": "npm run typecheck && npm run parcel:build && npm run static-assets",
         "parcel:watch": "parcel ./src/index.html",
         "parcel:build": "parcel build ./src/index.html --no-source-maps",
+        "static-assets": "node copy.js",
         "typecheck": "tsc --noEmit"
     },
     "alias": {
@@ -24,6 +25,7 @@
         "@fullhuman/postcss-purgecss": "^3.0.0",
         "@types/luxon": "^1.27.0",
         "autoprefixer": "^9.8.6",
+        "fs-extra": "^10.0.0",
         "parcel-bundler": "^1.12.4",
         "parcel-plugin-bundle-visualiser": "^1.2.0",
         "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.2.2",
