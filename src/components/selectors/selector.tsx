@@ -35,7 +35,7 @@ export default function Selector<T>({ value, options, onChange, style, classSize
                 <span class="block truncate">{toStr(value)}</span>
                 <span class={join(
                     "absolute inset-y-0 right-0 pr-2 items-center pointer-events-none",
-                    style === SelectorStyle.DashboardTime ? "hidden group-hover:flex" : "flex",
+                    style === SelectorStyle.DashboardTime ? "hidden group-focus:flex group-hover:flex" : "flex",
                 )}>
                     <SelectorIcon
                         className="w-5 h-5 text-gray-400"
