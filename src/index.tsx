@@ -8,6 +8,12 @@ setDefaultSystemLocale()
 
 render(<App />, document.getElementById('root') as HTMLElement)
 
+if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/service-worker.js')
+    })
+}
+
 function App() {
     return <div class="flex flex-col h-full min-h-screen">
         <div class="flex-1 flex flex-col sm:items-center sm:flex-row sm:justify-evenly sm:flex-wrap text-2xl py-5">
