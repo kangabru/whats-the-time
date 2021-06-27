@@ -1,16 +1,17 @@
 {
     "version": "1.0.0",
-    "name": "my-time-your-time",
-    "description": "",
+    "name": "whats-the-time",
+    "description": "Convert time zones and save your favourites to a personal dashboard.",
     "main": "index.js",
     "scripts": {
         "preinstall": "npx npm-force-resolutions",
         "start": "npm run dev",
         "dev": "npm run typecheck && npm run parcel:watch",
-        "build": "npm run typecheck && npm run parcel:build && npm run static-assets",
+        "build": "npm run typecheck && npm run parcel:build && npm run assets-copy",
         "parcel:watch": "parcel ./src/index.html",
         "parcel:build": "parcel build ./src/index.html --no-source-maps",
-        "static-assets": "node copy.js",
+        "assets-copy": "node copy.js",
+        "assets-icon-gen": "npx pwa-asset-generator assets/logo.svg assets/icons",
         "typecheck": "tsc --noEmit"
     },
     "alias": {
@@ -28,6 +29,7 @@
         "fs-extra": "^10.0.0",
         "parcel-bundler": "^1.12.4",
         "parcel-plugin-bundle-visualiser": "^1.2.0",
+        "posthtml-expressions": "^1.7.1",
         "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.2.2",
         "typescript": "^4.1.3"
     },

@@ -44,4 +44,13 @@ Deploy statically (e.g. [Netlify](https://www.netlify.com/)) with the following 
 - Command: `npm run build`
 - Directory: `dist`
 
----
+### 💻 Environment variables
+
+Use the `.env.example` file to get started and [read how they're used in Parcel here](https://parceljs.org/env.html).
+
+Variable | Example Value | Description
+| - | :-: | - | - |
+URL_SITE | `https://mysite.com` | The main site url. Used for links and full static image paths.
+
+*Note: You may need to delete the `.cache` folder and rebuild to apply changes in dev.*
+
