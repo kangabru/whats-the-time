@@ -6,7 +6,7 @@ module.exports = {
     plugins: {
         "posthtml-expressions": {
             locals: {
-                URL_SITE: process.env.URL_SITE,
+                URL_SITE: process.env.URL_SITE ?? 'localhost:1234',
             }
         }
     }
