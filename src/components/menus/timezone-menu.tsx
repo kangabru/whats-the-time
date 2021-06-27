@@ -42,7 +42,7 @@ export default function TimezoneMenu({ location, edit }: { location: Location, e
             >
                 <Menu.Items
                     style={{ '--tw-translate-y': `calc(${top}px - 50%)` }}
-                    className="absolute z-20 top-0 left-14 transform w-32 bg-white origin-left divide-y divide-gray-100 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                    className="absolute z-20 top-0 left-14 transform w-32 bg-white dark:bg-gray-900 origin-left divide-y divide-gray-100 dark:divide-gray-700 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                     <div className="px-1 py-1 ">
                         <MenuButton text="Edit" onClick={edit} icon={PencilIcon} />
                     </div>
@@ -51,7 +51,7 @@ export default function TimezoneMenu({ location, edit }: { location: Location, e
                         <MenuButton text="Move down" onClick={() => moveLocation(location, false)} icon={ChevronDownIcon} />
                     </div>
                     <div className="px-1 py-1">
-                        <MenuButton text='Delete' onClick={confirmDelete} icon={TrashIcon} class="text-red-600" classActive="bg-red-100 underline" />
+                        <MenuButton text='Delete' onClick={confirmDelete} icon={TrashIcon} class="text-red-600" classActive="bg-red-100 dark:bg-red-900 underline" />
                     </div>
                 </Menu.Items>
             </Transition>
@@ -71,7 +71,7 @@ function MenuButton({ text, icon, onClick, class: cls, classActive }: MenuButton
         {({ active }) => (
             <button title={text} onClick={onClick} class={join(
                 cls, 'group flex rounded-md items-center w-full px-2 py-2 text-sm focus-ring',
-                active && (classActive ?? 'bg-gray-100 underline'),
+                active && (classActive ?? 'bg-gray-100 dark:bg-gray-700 underline'),
             )}>
                 {icon({ className: "w-5 h-5 mr-2", ariaHidden: true })}
                 {text}

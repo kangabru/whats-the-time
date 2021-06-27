@@ -40,7 +40,7 @@ export default function Modal({ isOpen, close, children, classSize }: ModalProps
                 >
                     <div class={join(
                         classSize ?? 'w-full max-w-md',
-                        "inline-block p-6 my-8 space-y-4 text-left align-middle transition-all transform bg-white shadow-xl rounded-2xl"
+                        "inline-block p-6 my-8 space-y-4 text-left align-middle transition-all transform bg-white dark:bg-gray-900 shadow-xl rounded-2xl"
                     )}>
                         {children}
                     </div>

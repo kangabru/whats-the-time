@@ -13,9 +13,9 @@ import EditTimezone from './menus/timezone-modal';
 import { SelectorStyle } from './selectors/selector';
 import TimeSelector, { TimeOption, useFindTimeOption, useTimeOptions } from './selectors/time';
 
-const classTdHead = "px-6 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+const classTdHead = "px-6 py-1 text-left text-xs font-medium text-gray-500 dark:text-gray-200 uppercase tracking-wider"
 const classTdHeadCenter = join(classTdHead, "text-center")
-const classTdBody = "px-6 py-3.5 whitespace-nowrap text-sm text-gray-900"
+const classTdBody = "px-6 py-3.5 whitespace-nowrap text-sm text-gray-900 dark:text-gray-100"
 
 /** Renders the 'dashboard' page section. */
 export default function TimeDashboard() {
@@ -37,12 +37,12 @@ export default function TimeDashboard() {
         <RelativeParent class="flex flex-col max-w-full">
             <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
                 <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
-                    <div className="shadow-md overflow-hidden border-b border-gray-200 sm:rounded-lg">
-                        <table className="min-w-full divide-y divide-gray-200">
-                            <thead class="bg-gray-50">
+                    <div className="shadow-md overflow-hidden border-b border-gray-200 dark:border-gray-800 sm:rounded-lg">
+                        <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-600">
+                            <thead class="bg-gray-50 dark:bg-gray-800">
                                 <HeaderRow openSettings={openSettings} />
                             </thead>
-                            <tbody class="bg-white divide-y divide-gray-200">
+                            <tbody class="bg-white dark:bg-gray-700 divide-y divide-gray-200 dark:divide-gray-700">
                                 <LocationRow key='here' notes="Local" timezone={here} create={openCreate} />
                                 {locations.map((l, i) => <LocationRow key={`${l.timezone}-${i}`} {...l} />)}
                             </tbody>
@@ -96,7 +96,7 @@ function LocationRow({ create, ...location }: Location & { create?: () => void }
     const edit = () => setCreateIsOpen(true)
     const cancel = () => setCreateIsOpen(false)
 
-    return <tr class="bg-white rounded-lg overflow-hidden my-3">
+    return <tr class="bg-white dark:bg-gray-800 rounded-lg overflow-hidden my-3">
 
         {/* The popup menu */}
         <EditTimezone isOpen={editing} close={cancel} location={location} />
@@ -111,7 +111,7 @@ function LocationRow({ create, ...location }: Location & { create?: () => void }
                     </button>
                     : <TimezoneMenu location={location} edit={edit} />}
                 <div class="ml-4">
-                    <div class="text-sm font-medium text-gray-900 max-w-xs truncate">{location.notes}</div>
+                    <div class="text-sm font-medium text-gray-900 dark:text-gray-100 max-w-xs truncate">{location.notes}</div>
                     <div class="text-sm text-gray-500">{prettyTimezone(location.timezone)}</div>
                 </div>
             </div>

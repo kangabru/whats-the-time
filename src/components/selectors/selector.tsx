@@ -30,7 +30,9 @@ export default function Selector<T>({ value, options, onChange, style, classSize
                 "group relative w-full py-2 pl-3 pr-10 rounded-lg cursor-default focus-ring",
                 (style === SelectorStyle.Raised || style === undefined) && "shadow-md focus:border-gray-500",
                 style === SelectorStyle.Field && "border border-gray-300 shadow-sm focus:border-white",
-                style === SelectorStyle.DashboardTime ? "hover:bg-white focus:bg-white text-center" : "bg-white text-left",
+                style === SelectorStyle.DashboardTime
+                    ? "hover:bg-white focus:bg-white dark:bg-gray-800 dark:hover:bg-gray-600 dark:focus:bg-gray-600 text-center"
+                    : "bg-white dark:bg-gray-700 text-left",
             )}>
                 <span class="block truncate">{toStr(value)}</span>
                 <span class={join(
@@ -38,7 +40,7 @@ export default function Selector<T>({ value, options, onChange, style, classSize
                     style === SelectorStyle.DashboardTime ? "hidden group-focus:flex group-hover:flex" : "flex",
                 )}>
                     <SelectorIcon
-                        className="w-5 h-5 text-gray-400"
+                        className="w-5 h-5 text-gray-400 dark:text-gray-200"
                         aria-hidden="true"
                     />
                 </span>
@@ -51,15 +53,15 @@ export default function Selector<T>({ value, options, onChange, style, classSize
                 leaveTo="opacity-0"
             >
                 <Listbox.Options className={join(
-                    "absolute z-10 mt-1 overflow-auto bg-white rounded-md shadow-lg max-h-60 ring-1 ring-gray ring-opacity-5 focus:outline-none",
+                    "absolute z-10 mt-1 overflow-auto bg-white dark:bg-gray-700 rounded-md shadow-lg max-h-60 ring-1 ring-gray ring-opacity-5 focus:outline-none",
                     style === SelectorStyle.DashboardTime ? "w-40" : "w-full",
                 )}>
                     {options.map(option => (
                         <Listbox.Option key={toKey(option)} value={option} disabled={option.disabled}
                             className={({ active, disabled }) => join(
                                 'cursor-default select-none relative pl-10 pr-4',
-                                active ? 'text-gray-900 bg-gray-100' : 'text-gray-900',
-                                disabled ? 'bg-indigo-100 text-white sticky top-0 z-10 py-1' : 'py-2',
+                                active ? 'text-gray-900 dark:text-gray-100 bg-gray-100 dark:bg-gray-800' : 'text-gray-700 dark:text-gray-100',
+                                disabled ? 'bg-indigo-100 dark:bg-indigo-900 text-white sticky top-0 z-10 py-1' : 'py-2',
                             )}>
                             {/* @ts-ignore */}
                             {({ selected, disabled }) => (
