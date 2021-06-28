@@ -37,12 +37,12 @@ export default function TimeDashboard() {
         <RelativeParent class="flex flex-col max-w-full">
             <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
                 <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
-                    <div className="shadow-md overflow-hidden border-b border-gray-200 dark:border-gray-800 sm:rounded-lg">
+                    <div className="shadow-md overflow-hidden border-b border-gray-200 dark:border-gray-800 sm:rounded-lg transition">
                         <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-600">
-                            <thead class="bg-gray-50 dark:bg-gray-800">
+                            <thead class="bg-gray-50 dark:bg-gray-800 transition">
                                 <HeaderRow openSettings={openSettings} />
                             </thead>
-                            <tbody class="bg-white dark:bg-gray-700 divide-y divide-gray-200 dark:divide-gray-700">
+                            <tbody class="bg-white dark:bg-gray-700 divide-y divide-gray-200 dark:divide-gray-700 transition">
                                 <LocationRow key='here' notes="Local" timezone={here} create={openCreate} />
                                 {locations.map((l, i) => <LocationRow key={`${l.timezone}-${i}`} {...l} />)}
                             </tbody>
@@ -96,7 +96,7 @@ function LocationRow({ create, ...location }: Location & { create?: () => void }
     const edit = () => setCreateIsOpen(true)
     const cancel = () => setCreateIsOpen(false)
 
-    return <tr class="bg-white dark:bg-gray-800 rounded-lg overflow-hidden my-3">
+    return <tr class="bg-white dark:bg-gray-800 rounded-lg overflow-hidden my-3 transition">
 
         {/* The popup menu */}
         <EditTimezone isOpen={editing} close={cancel} location={location} />
