@@ -11,7 +11,7 @@ export default function EditSettings({ isOpen, close }: { isOpen: boolean, close
     const [confirming, onClick, onClose] = useConfirm(close)
 
     return <Modal isOpen={isOpen} close={onClose} classSize="w-full max-w-sm">
-        <Dialog.Title as="h3" className="text-lg font-medium leading-6 text-gray-900">
+        <Dialog.Title as="h3" className="text-lg font-medium leading-6 text-gray-900 dark:text-gray-100">
             Settings
         </Dialog.Title>
 
@@ -65,7 +65,7 @@ function DefaultLocationSelector() {
             />
 
             <button title="Local timezone" onClick={resetTimezone}
-                class="block p-2 border border-gray-300 rounded-lg shadow-sm text-sm focus-ring focus:border-white">
+                class="block p-2 dark:bg-gray-700 border border-gray-300 rounded-lg shadow-sm text-sm focus-ring focus:border-white">
                 <LocationMarkerIcon class="w-6 h-6" />
             </button>
         </div>

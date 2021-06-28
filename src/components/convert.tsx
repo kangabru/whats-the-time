@@ -34,7 +34,7 @@ export default function TimeConverter() {
             <div class={classGroup}>
                 <div class={classTextTiny}>in</div>
                 <a title="Timezone info" target="_blank"
-                    class="absolute bottom-full right-3 opacity-60 hover:opacity-100 rounded-full focus-ring"
+                    class="absolute bottom-full right-3 text-gray-800 dark:text-white opacity-80 hover:opacity-100 rounded-full focus-ring"
                     href="https://en.wikipedia.org/wiki/List_of_tz_database_time_zones">
                     <InfoIcon class="w-5 h-5" />
                 </a>
