@@ -8,7 +8,7 @@ const colors = require('tailwindcss/colors')
 const withDefaultColour = (colours) => ({ ...colours, DEFAULT: colours[500] })
 
 module.exports = {
-    darkMode: 'media',
+    darkMode: 'class',
     purge: [
         "./src/**/*.html",
         "./src/**/*.js",
