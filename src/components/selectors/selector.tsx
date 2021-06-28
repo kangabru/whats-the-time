@@ -31,7 +31,7 @@ export default function Selector<T>({ value, options, onChange, style, classSize
                 (style === SelectorStyle.Raised || style === undefined) && "shadow-md focus:border-gray-500",
                 style === SelectorStyle.Field && "border border-gray-300 shadow-sm focus:border-white",
                 style === SelectorStyle.DashboardTime
-                    ? "hover:bg-white focus:bg-white dark:bg-gray-800 dark:hover:bg-gray-600 dark:focus:bg-gray-600 text-center"
+                    ? "bg-gray-50 hover:bg-white focus:bg-white dark:bg-gray-800 dark:hover:bg-gray-600 dark:focus:bg-gray-600 text-center"
                     : "bg-white dark:bg-gray-700 text-left",
             )}>
                 <span class="block truncate">{toStr(value)}</span>

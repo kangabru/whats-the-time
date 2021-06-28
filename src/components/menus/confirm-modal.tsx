@@ -14,13 +14,13 @@ type ConfirmModalProps = {
 
 export default function ConfirmModal({ title, message, confirm, isOpen, onConfirm, onCancel }: ConfirmModalProps) {
     return <Modal isOpen={isOpen} close={onCancel} classSize="w-full max-w-sm">
-        <Dialog.Title as="h3" className="text-lg font-medium leading-6 text-gray-900 dark:text-gray-100">{title}</Dialog.Title>
+        <Dialog.Title as="h3" className="text-lg font-medium leading-6 text-gray-900 dark:text-gray-100 transition">{title}</Dialog.Title>
 
-        <Dialog.Description className="text-gray-600">{message}</Dialog.Description>
+        <Dialog.Description className="text-gray-600 dark:text-gray-300">{message}</Dialog.Description>
 
         <div class="row space-x-2">
             <button onClick={onCancel}
-                className="w-full col text-center font-semibold py-2 px-4 border border-transparent shadow-sm rounded-md text-gray-700 dark:text-gray-300 bg-gray-300 bg-gray-700 hover:bg-gray-400 dark:hover:bg-gray-600 focus-ring">
+                className="w-full col text-center font-semibold py-2 px-4 border border-transparent shadow-sm rounded-md text-gray-700 dark:text-gray-300 transition bg-gray-300 dark:bg-gray-700 hover:bg-gray-400 dark:hover:bg-gray-600 focus-ring">
                 Cancel
             </button>
             <button type="submit" onClick={onConfirm}

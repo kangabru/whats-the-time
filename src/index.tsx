@@ -29,7 +29,7 @@ function App() {
 }
 
 function ActionBar() {
-    return <div class="sm:fixed top-0 left-0 right-0 text-gray-700 dark:text-white">
+    return <div class="sm:fixed top-0 left-0 right-0 text-gray-700 dark:text-white transition">
         <div class="row justify-between p-2">
             <DarkModeToggle />
             <GitHubLink />

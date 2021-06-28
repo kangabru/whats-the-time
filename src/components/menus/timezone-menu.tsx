@@ -51,7 +51,7 @@ export default function TimezoneMenu({ location, edit }: { location: Location, e
                         <MenuButton text="Move down" onClick={() => moveLocation(location, false)} icon={ChevronDownIcon} />
                     </div>
                     <div className="px-1 py-1">
-                        <MenuButton text='Delete' onClick={confirmDelete} icon={TrashIcon} class="text-red-600" classActive="bg-red-100 dark:bg-red-900 underline" />
+                        <MenuButton text='Delete' onClick={confirmDelete} icon={TrashIcon} class="text-red-600 dark:hover:text-white" classActive="bg-red-100 dark:bg-red-900 underline" />
                     </div>
                 </Menu.Items>
             </Transition>
