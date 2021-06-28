@@ -50,7 +50,7 @@ Use the `.env.example` file to get started and [read how they're used in Parcel 
 
 Variable | Example Value | Description
 | - | :-: | - | - |
-URL_SITE | `https://mysite.com` | The main site url. Used for links and full static image paths.
+URL_SITE | `https://mysite.com` | The main site url. Used for links and full static image paths. *Do not use a final `/` character.*
 
 *Note: You may need to delete the `.cache` folder and rebuild to apply changes in dev.*
 
