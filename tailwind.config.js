@@ -33,8 +33,9 @@ module.exports = {
     },
     variants: {
         extend: {
-            display: ['group-hover', 'group-focus'],
             backgroundColor: ['group-hover', 'focus'],
+            cursor: ['disabled'],
+            display: ['group-hover', 'group-focus'],
             opacity: ['dark', 'disabled'],
         }
     },

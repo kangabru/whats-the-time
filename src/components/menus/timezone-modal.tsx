@@ -55,10 +55,10 @@ export default function EditTimezone({ isOpen, close, location }: { isOpen: bool
 
         {/* Save */}
         <div class="flex justify-end">
-            <button type="submit" onClick={onClick}
+            <button type="submit" onClick={onClick} disabled={!isValid}
                 className={join(
                     "font-semibold py-2 px-4 border border-transparent shadow-sm text-sm rounded-md text-white bg-indigo-400 hover:bg-indigo-500 focus-ring",
-                    !isValid && "opacity-50 cursor-not-allowed",
+                    "disabled:opacity-50 disabled:cursor-not-allowed",
                 )}>
                 Save
             </button>
