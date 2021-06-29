@@ -21,7 +21,7 @@ if ('serviceWorker' in navigator) {
 function App() {
     return <div class="flex flex-col h-full min-h-screen">
         <ActionBar />
-        <div class="flex-1 flex flex-col sm:items-center sm:flex-row sm:justify-evenly sm:flex-wrap text-2xl py-5">
+        <div class="flex-1 flex items-center flex-row justify-evenly flex-wrap text-2xl py-5">
             <TimeConverter />
             <TimeDashBoard />
         </div>

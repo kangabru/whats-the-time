@@ -35,8 +35,8 @@ export default function TimeDashboard() {
         {/** {@link RelativeParent} is used here to allow the row menu popup to render outside of the table bounds. */}
         {/* The div nesting is used to allow the table to render with rounded edges, a shadow, and scroll nicely on small screens. */}
         <RelativeParent class="flex flex-col max-w-full">
-            <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
-                <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
+            <div className="-my-2 overflow-x-auto">
+                <div className="py-2 align-middle inline-block min-w-full pb-5 sm:px-3 lg:px-4">
                     <div className="shadow-md overflow-hidden border-b border-gray-200 dark:border-gray-800 sm:rounded-lg transition">
                         <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-600">
                             <thead class="bg-gray-50 dark:bg-gray-800 transition">
