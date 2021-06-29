@@ -35,6 +35,7 @@ module.exports = {
         extend: {
             display: ['group-hover', 'group-focus'],
             backgroundColor: ['group-hover', 'focus'],
+            opacity: ['dark', 'disabled'],
         }
     },
     plugins: [

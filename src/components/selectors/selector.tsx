@@ -60,7 +60,7 @@ export default function Selector<T>({ value, options, onChange, style, classSize
                         <Listbox.Option key={toKey(option)} value={option} disabled={option.disabled}
                             className={({ active, disabled }) => join(
                                 'cursor-default select-none relative pl-10 pr-4',
-                                active ? 'text-gray-900 dark:text-gray-100 bg-gray-100 dark:bg-gray-800' : 'text-gray-700 dark:text-gray-100',
+                                active ? 'text-gray-900 dark:text-white bg-gray-100 dark:bg-gray-800' : 'text-gray-700 dark:text-white',
                                 disabled ? 'bg-indigo-100 dark:bg-indigo-900 text-white sticky top-0 z-10 py-1' : 'py-2',
                             )}>
                             {/* @ts-ignore */}

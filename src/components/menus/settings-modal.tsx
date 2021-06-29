@@ -11,7 +11,7 @@ export default function EditSettings({ isOpen, close }: { isOpen: boolean, close
     const [confirming, onClick, onClose] = useConfirm(close)
 
     return <Modal isOpen={isOpen} close={onClose} classSize="w-full max-w-sm">
-        <Dialog.Title as="h3" className="text-lg font-medium leading-6 text-gray-900 dark:text-gray-100">
+        <Dialog.Title as="h3" className="text-lg font-medium leading-6 text-gray-900 dark:text-white">
             Settings
         </Dialog.Title>
 

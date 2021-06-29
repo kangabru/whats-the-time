@@ -32,14 +32,14 @@ export default function EditTimezone({ isOpen, close, location }: { isOpen: bool
 
     return <Modal isOpen={isOpen} close={close} classSize='w-full max-w-sm'>
 
-        <Dialog.Title as="h3" className="text-lg font-medium leading-6 text-gray-900 dark:text-gray-100">
+        <Dialog.Title as="h3" className="text-lg font-medium leading-6 text-gray-900 dark:text-white">
             {!!location ? "Edit" : "Add"} timezone
         </Dialog.Title>
 
         {/* Notes and timezone fields */}
         <div class="bg-white dark:bg-gray-900 space-y-2">
             <div class="space-y-1">
-                <label htmlFor="names" class="block text-sm font-medium text-gray-700 dark:text-gray-100">Notes</label>
+                <label htmlFor="names" class="block text-sm font-medium text-gray-700 dark:text-white">Notes</label>
                 <input type="text" value={notes} onInput={e => setNotes(e.currentTarget.value)} placeholder="Offshore Team"
                     class={join(
                         "block w-full dark:bg-gray-700 border-gray-300 rounded-lg shadow-sm text-sm",

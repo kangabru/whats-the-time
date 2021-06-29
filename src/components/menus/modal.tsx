@@ -26,7 +26,7 @@ export default function Modal({ isOpen, close, children, classSize }: ModalProps
                     leaveFrom="opacity-100"
                     leaveTo="opacity-0"
                 >
-                    <Dialog.Overlay className="fixed inset-0 bg-black opacity-25" />
+                    <Dialog.Overlay className="fixed inset-0 bg-black opacity-25 dark:opacity-50" />
                 </Transition.Child>
 
                 <Transition.Child
@@ -40,7 +40,8 @@ export default function Modal({ isOpen, close, children, classSize }: ModalProps
                 >
                     <div class={join(
                         classSize ?? 'w-full max-w-md',
-                        "inline-block p-6 my-8 space-y-4 text-left align-middle transition-all transform bg-white dark:bg-gray-900 shadow-xl rounded-2xl"
+                        "inline-block p-6 my-8 space-y-4 text-left align-middle transition-all transform bg-white dark:bg-gray-900 shadow-xl rounded-2xl",
+                        "border-2 border-transparent dark:border-gray-200",
                     )}>
                         {children}
                     </div>

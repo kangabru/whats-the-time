@@ -14,7 +14,7 @@ type ConfirmModalProps = {
 
 export default function ConfirmModal({ title, message, confirm, isOpen, onConfirm, onCancel }: ConfirmModalProps) {
     return <Modal isOpen={isOpen} close={onCancel} classSize="w-full max-w-sm">
-        <Dialog.Title as="h3" className="text-lg font-medium leading-6 text-gray-900 dark:text-gray-100 transition">{title}</Dialog.Title>
+        <Dialog.Title as="h3" className="text-lg font-medium leading-6 text-gray-900 dark:text-white transition">{title}</Dialog.Title>
 
         <Dialog.Description className="text-gray-600 dark:text-gray-300">{message}</Dialog.Description>
 

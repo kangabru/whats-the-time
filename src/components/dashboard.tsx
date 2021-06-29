@@ -13,9 +13,9 @@ import EditTimezone from './menus/timezone-modal';
 import { SelectorStyle } from './selectors/selector';
 import TimeSelector, { TimeOption, useFindTimeOption, useTimeOptions } from './selectors/time';
 
-const classTdHead = "px-6 py-1 text-left text-xs font-medium text-gray-500 dark:text-gray-200 transition uppercase tracking-wider"
+const classTdHead = "px-6 py-1 text-left text-xs font-medium text-gray-500 dark:text-white transition uppercase tracking-wider"
 const classTdHeadCenter = join(classTdHead, "text-center")
-const classTdBody = "px-6 py-3.5 whitespace-nowrap text-sm text-gray-900 dark:text-gray-100 transition"
+const classTdBody = "px-6 py-3.5 whitespace-nowrap text-sm text-gray-900 dark:text-white transition"
 
 /** Renders the 'dashboard' page section. */
 export default function TimeDashboard() {
@@ -111,8 +111,8 @@ function LocationRow({ create, ...location }: Location & { create?: () => void }
                     </button>
                     : <TimezoneMenu location={location} edit={edit} />}
                 <div class="ml-4">
-                    <div class="text-sm font-medium text-gray-900 dark:text-gray-100 transition max-w-xs truncate">{location.notes}</div>
-                    <div class="text-sm text-gray-500">{prettyTimezone(location.timezone)}</div>
+                    <div class="text-sm font-medium text-gray-900 dark:text-white transition max-w-xs truncate">{location.notes}</div>
+                    <div class="text-sm text-gray-500 dark:text-gray-400">{prettyTimezone(location.timezone)}</div>
                 </div>
             </div>
         </td>
